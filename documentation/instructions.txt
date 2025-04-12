@@ -1,0 +1,136 @@
+ 
+Private Electric Vehicle Reservation System
+Delivery Date:
+Saturday, April 26, 2025, 11:59 PM
+Groups:
+Up to 3 people, only one group member submits the assignment
+
+Description:
+The use of electric bicycles, scooters, and skateboards has proliferated in recent years, and we can see many of them parked in front of campus buildings. Many of them appear to remain parked for several hours while their owners attend classes or run errands on campus.
+
+The electric vehicle user community at the College has realized this is an opportunity to generate income.
+They have decided to establish a system for sharing their electric vehicles with the rest of the campus community while they are not using them. This will require a system that matches vehicles with users by setting a usage schedule and location where the vehicle is available on campus.
+
+In general terms:
+•	The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.
+•	The 3 types of electric vehicles to be used are:
+o	Bicycle
+o	Scooter
+o	Skateboard
+•	Five stations will be established throughout campus, each with a limited capacity:
+o	Stefani Building (capacity: 40)
+o	Student Center (capacity: 90)
+o	Biology Building (capacity: 35)
+o	Chemical Engineering Building (capacity: 45)
+o	Business Administration Building (capacity: 45)
+ 
+Assignment:
+Implement a reservation system for electric vehicles. The system will manage vehicle availability, customer reservations, and a waitlist for periods when no vehicles are available. The system must allow the operator to:
+•	Reserve vehicles
+•	Modify reservations
+•	Cancel reservations
+•	View the availability of vehicles at a given time
+ 
+Implementation
+1.	You must write your program in Java (you may use the classes and methods presented in class)
+o	You may use the java.time package for time handling
+2.	Preferably use VS Code.
+3.	The system must be implemented from the perspective of an operator, who will make reservations on behalf of users.
+
+This operator can:
+•	Add, modify, and delete users
+•	Add, modify, and delete vehicles
+•	Add, modify, and cancel reservations
+o	When making or modifying a reservation:
+	Show the user the vehicles that are still available and their cost
+	If there are no vehicles available, offer the user the option to be added to a waitlist
+	Once the user decides to complete the reservation:
+	Verify that the vehicle is available
+	Inform the user of the total cost (no need to implement payment)
+	Reserve the vehicle for the specified time
+o	If a reservation is canceled, allow the vehicle to be taken by someone on the waitlist
+•	Show a list of people who have used the system and their balance of expenses or income
+•	Show the list of vehicles in inventory and their owners
+ 
+Additionally, the system must show:
+•	Registered people
+•	Vehicles and the period for which they are reserved
+•	Stations and the vehicles at each one
+•	The reservation transactions made
+ 
+Design
+Components:
+These are the basic classes your program must have. You can create additional classes as needed.
+1.	Vehicle Class
+A “vehicle” class to represent each vehicle, with attributes such as:
+
+•	A unique ID code
+•	Type of vehicle
+•	Brief description
+•	Available usage schedule
+•	Location
+•	Any other identifier deemed necessary during development
+
+2.	User Class
+Users will be students from campus. Each user will have:
+
+•	Name
+•	Student number
+•	UPR email
+•	Phone number
+•	Any other necessary info
+•	Users can be:
+o	Clients
+o	Vehicle owners
+o	Both owners and clients
+
+3.	Station Class
+The “station” class manages available vehicles, user reservations, and vehicle availability.
+
+Vehicle usage costs will be:
+Vehicle Type	First Hour or Fraction	Additional Hours or Fraction
+Bike	3 credits	2 credits
+Scooter	2 credits	1 credit
+Skateboard	1 credit	0.5 credits
+General restrictions:
+•	The maximum continuous usage of any equipment by a user is 6 hours.
+•	No more than 2 vehicles per owner can be registered for rent.
+•	A person cannot rent more than 1 vehicle at a time.
+ 
+Requirements:
+Your program must make use of:
+1.	Set: To store available vehicles.
+2.	LinkedList: To store the reservation history or transaction log.
+3.	HashMap: To map clients to the vehicles they have reserved.
+4.	Stack: To implement undo functionality for the last reservation/cancellation.
+5.	Queue: To implement a waitlist when all vehicles at a station are reserved.
+
+You may add other structures if needed.
+ 
+Documentation and Comments
+You must document your program:
+•	Classes – Include:
+o	At the top of each class, explain the structure of your class and the type of list(s) used and why (e.g., “An ArrayList was used to store…”).
+•	Methods – Include:
+o	Brief explanation of what it does
+o	Parameters it receives
+o	What it returns
+o	Who it calls
+o	Who calls it
+ 
+Delivery
+Consists of two parts:
+1.	Program submission – The deadline is Saturday, April 26 at 11:59 PM.
+o	Upload your code to the GitHub platform: https://classroom.github.com/a/3ADzlwbL
+o	Follow the format explained in this document. Your project will be graded based on the last submission before the deadline.
+o	Any code submitted after the deadline, or not in the GitHub Classroom repository (e.g., by email), will not be considered for grading.
+2.	Project presentation – The presentation will be on Monday, April 28 during lab hours.
+o	You must book your group’s presentation time on Moodle.
+o	If your group does not present: you receive 0 points.
+o	If your group presents late: you lose 10% of the available points.
+ 
+Academic Integrity
+Do not share your code! You may discuss design and implementation strategies, but remember:
+•	If projects are found to be too similar, all parties involved will receive a grade of 0.
+•	If it is found that code was written using an AI tool like ChatGPT, you will also receive a grade of 0.
+
