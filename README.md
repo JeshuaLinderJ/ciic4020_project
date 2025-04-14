@@ -2,7 +2,7 @@
 Sistema de Reservación de Vehículos Eléctricos Particulares
 
 Jeshua Linder Jiménez    |   jeshua.linder@upr.edu
-Sebastian Seguí     |   sebastian.segui@upr.edu (i think)
+Sebastian M. Seguí     |   sebastian.segui@upr.edu 
 
 ***
 
