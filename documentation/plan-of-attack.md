@@ -3,18 +3,18 @@
 # 1. Vehicles
 
 ## Core Requirements:
-	•	3 Types:
-	    •	Bicycle
-	    •	Scooter
-	    •	Skateboard
+	-	3 Types:
+	    -	Bicycle
+	    -	Scooter
+	    -	Skateboard
     
-    •	Each vehicle must include:
-	    •	Unique ID
-	    •	Type (enum recommended)
-	    •	Brief description
-	    •	Available usage schedule
-	    •	Location (station name)
-	    •	(Optional: Owner info)
+    -	Each vehicle must include:
+	    -	Unique ID
+	    -	Type (enum recommended)
+	    -	Brief description
+	    -	Available usage schedule
+	    -	Location (station name)
+	    -	(Optional: Owner info)
 
 ## Usage Costs:
 
@@ -24,29 +24,29 @@ Scooter	2 credits	1 credit
 Skateboard	1 credit	0.5 credits
 
 ### Constraints:
-	•	A user can only register up to 2 vehicles for rent.
-	•	A user can only reserve 1 vehicle at a time.
-	•	Maximum reservation length: 6 hours.
+	-	A user can only register up to 2 vehicles for rent.
+	-	A user can only reserve 1 vehicle at a time.
+	-	Maximum reservation length: 6 hours.
 
 ***
 
 # 2. Users
 
 ### Core Fields:
-	•	Name
-	•	Student Number
-	•	UPR Email
-	•	Phone Number
-	•	User types:
-	•	Client
-	•	Owner
-	•	Both
+	-	Name
+	-	Student Number
+	-	UPR Email
+	-	Phone Number
+	-	User types:
+	-	Client
+	-	Owner
+	-	Both
 
 ### System Should Track:
-	•	Registered people
-	•	Their role(s)
-	•	Balance of expenses or income
-	•	Vehicles they own
+	-	Registered people
+	-	Their role(s)
+	-	Balance of expenses or income
+	-	Vehicles they own
 
 ***
 
@@ -63,45 +63,45 @@ Chemical Engineering Building: 45
 Business Admin Building: 45
 
 ### Responsibilities:
-	•	Manage vehicle inventory
-	•	Track vehicle location
-	•	Manage reservations at each station
-	•	Track waitlist for full periods
+	-	Manage vehicle inventory
+	-	Track vehicle location
+	-	Manage reservations at each station
+	-	Track waitlist for full periods
 
 ***
 
 # 4. Reservations
 
 ### Core Features:
-	•	Operator can:
-	•	Add, modify, cancel reservations
-	•	View availability
-	•	Show available vehicles and their cost before booking
-	•	Offer waitlist if none available
-	•	Confirm availability before reserving
-	•	Calculate and display total cost
-	•	Assign vehicle upon confirmation
+	-	Operator can:
+	-	Add, modify, cancel reservations
+	-	View availability
+	-	Show available vehicles and their cost before booking
+	-	Offer waitlist if none available
+	-	Confirm availability before reserving
+	-	Calculate and display total cost
+	-	Assign vehicle upon confirmation
 
 ### Constraints:
-	•	Only between 7:00 AM – 6:00 PM, Mon–Fri
-	•	Duration: up to 6 hours
-	•	One reservation per user at a time
+	-	Only between 7:00 AM – 6:00 PM, Mon–Fri
+	-	Duration: up to 6 hours
+	-	One reservation per user at a time
 
 ### Upon Cancellation:
-	•	Next user on waitlist gets notified and assigned the vehicle
+	-	Next user on waitlist gets notified and assigned the vehicle
 
 ***
 
 # 5. Operator Functionality
-	•	Add/modify/delete:
-	•	Users
-	•	Vehicles
-	•	Reservations
-	•	View:
-	•	All users and their balances
-	•	All vehicle inventory + ownership
-	•	Reservation transactions (logs)
-	•	Vehicles at each station
+	-	Add/modify/delete:
+	-	Users
+	-	Vehicles
+	-	Reservations
+	-	View:
+	-	All users and their balances
+	-	All vehicle inventory + ownership
+	-	Reservation transactions (logs)
+	-	Vehicles at each station
 
 ***
 
@@ -121,13 +121,26 @@ You must use the following:
 ***
 
 # 7. Design Notes
-	•	Document each class:
-	•	What data structures are used
-	•	Why they were chosen
-	•	Document each method:
-	•	What it does
-	•	Parameters and return value
-	•	Who calls it
+	-	Document each class:
+	-	What data structures are used
+	-	Why they were chosen
+	-	Document each method:
+	-	What it does
+	-	Parameters and return value
+	-	Who calls it
 
 ***
 
+# 8. Testing
+	-	I'd like to be able to implement a testing feature exclusively for the developers of the program
+	-	Testing should be able to incur high and low cases, and push the program to its limits
+	-	Testing should also be able to test how quickly the program can run, with visualized times per action, and a specialized console for displaying information
+		apart from the default information that would be a part of the project
+	-	I'm not sure of what format or template to use, but I don't think we should just wing it, rather get some info online for java or reservation specific programs
+	-	Still not sure where to keep the tests folder, so I'll place it outside of the src since I'm sure it doesn't identify as source code
+
+
+- Side Note
+Inspiration for a plan of attack came from the huggingface/open-r1 project by the huggingface team, when reading through their assets, although theres
+	was a png image with the visualized plan of attack, a md formatted file should be able to both have the stylized ability to present concepts through applications
+	to read md such as obisidian, or even the GitHub website/VScode extensions.

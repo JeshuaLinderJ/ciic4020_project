@@ -19,19 +19,19 @@ public class Station {
         this.currentOccupancy = 0;
         this.inventory = new HashSet<>();
         this.waitlist = new LinkedList<>();
-    }
+    };
 
     public String getName() {
         return name;
-    }
+    };
 
     public int getCapacity() {
         return capacity;
-    }
+    };
 
     public int getCurrentOccupancy() {
         return currentOccupancy;
-    }
+    };
    //vehicle is just a stand in until for now, i know we have the vehicle interface but yeah that's what i got for now 
    //maybe the add and remove could be void but i thougth that maybe gving feed back for each add or remove could be good
     public boolean addVehicle(Object vehicle) {
@@ -50,7 +50,7 @@ public class Station {
             waitlist.add(vehicle);
             return false;
         }
-}
+};
 
 //this and add will need the most changes later I think after the vehicle types are added 
 public boolean removeVehicle(Object vehicle) {
@@ -63,56 +63,56 @@ public boolean removeVehicle(Object vehicle) {
             currentOccupancy++;
             //if a vehicle is in the waitlist it will get added since now theres space for it 
            
-        }
+        };
         return true;
-    }
+    };
     return false;
-}
+};
 //this can be inrpoved later to better display the inventory
 public Set<Object> getInventory() {
     return inventory;
-}
+};
 
 public Queue<Object> getWaitlist() {
     return waitlist;
-    }
-}
+    };
+};
 
 
 // // Stefani  Station
 // public class Stefani extends Station {
 //     public Stefani() {
 //         super("Stefani", 40);
-//     }
-// }
+//     };
+// };
 
 // // Student Center Station
 // public class StudentCenter extends Station {
 //     public StudentCenter() {
 //         super("Student Center", 90);
-//     }
-// }
+//     };
+// };
 
 // Biology  Station
 // public class Biology extends Station {
 //     public Biology() {
 //         super("Biology", 35);
-//     }
-// }
+//     };
+// };
 
 // // Chemical Engineering Staiont 
 // public class ChemicalEngineering extends Station {
 //     public ChemicalEngineering() {
 //         super("Chemical Engineering ", 45);
-//     }
-// }
+//     };
+// };
 
 // // Business Administration Station
 // public class BusinessAdmin extends Station {
 //     public BusinessAdmin() {
 //         super("Business Administration", 45);
-//     }
-// }
+//     };
+// };
 
 // ----------------------------------------------------------
 // STATION MODEL
@@ -121,19 +121,19 @@ public Queue<Object> getWaitlist() {
 // plan-of-attack.md
 //
 // Five predefined stations with capacities:
-//   • Stefani Building: 40 vehicles
-//   • Student Center: 90 vehicles
-//   • Biology Building: 35 vehicles
-//   • Chemical Engineering Building: 45 vehicles
-//   • Business Admin Building: 45 vehicles
+//   - Stefani Building: 40 vehicles
+//   - Student Center: 90 vehicles
+//   - Biology Building: 35 vehicles
+//   - Chemical Engineering Building: 45 vehicles
+//   - Business Admin Building: 45 vehicles
 //
 // Needs to be expanded to include:
-//   • Vehicle inventory tracking (using Set)
-//   • Station-specific waitlist (using Queue)
-//   • Current occupancy tracking
+//   - Vehicle inventory tracking (using Set)
+//   - Station-specific waitlist (using Queue)
+//   - Current occupancy tracking
 //
 // Core responsibilities:
-//   • Track vehicles currently at the station
-//   • Monitor capacity and availability
-//   • Manage station-specific reservations
-//   • Maintain waitlist when station is at capacity
+//   - Track vehicles currently at the station
+//   - Monitor capacity and availability
+//   - Manage station-specific reservations
+//   - Maintain waitlist when station is at capacity

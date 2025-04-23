@@ -7,7 +7,7 @@ public interface OperatorManagement {
     void modifyOperator(String studentID, Operator updatedOperator);
     void deleteOperator(String studentID);
     void listRegisteredOperators();
-}
+};
 
 // ----------------------------------------------------------
 // USER MANAGEMENT INTERFACE
@@ -16,14 +16,14 @@ public interface OperatorManagement {
 // plan-of-attack.md sections 2 (Users) and 5 (Operator Functionality).
 //
 // Core responsibilities:
-//   • Manage system user accounts (add/modify/delete)
-//   • Track user roles (Client, Owner, or Both)
-//   • List all registered operators in the system
-//   • Maintain user balances and expense/income records
+//   - Manage system user accounts (add/modify/delete)
+//   - Track user roles (Client, Owner, or Both)
+//   - List all registered operators in the system
+//   - Maintain user balances and expense/income records
 //
 // Implementation will need to maintain records of:
-//   • User personal details (name, ID, email, phone)
-//   • User balance (expenses or income)
-//   • User's owned vehicles (if any)
-//   • User roles and permissions in the system
+//   - User personal details (name, ID, email, phone)
+//   - User balance (expenses or income)
+//   - User's owned vehicles (if any)
+//   - User roles and permissions in the system
 
