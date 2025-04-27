@@ -1,11 +1,21 @@
 package interfaces;
 
+
+
 import models.Station;
+import models.Reservation;
 
 public interface StationManagement {
-    void addStation(Station station);
-    void removeStation(String stationName);
-    Station getStation(String stationName);
+    //void addStation(Station station);//remove
+    //void removeStation(String stationName);//remove since they are predefined and it dosent tell us to add or remove anny 
+    //Station getStation(String stationName);
+
+    //i think they should go here 
+    void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end);
+    void modifyReservation(String reservationID, Reservation updated);
+    void cancelReservation(String reservationID);
+    void getVehicleAvailability(String station, LocalDateTime time);
+    void addToWaitlist(String OperatorID, String vehicleType, String station);
 };
 
 // ----------------------------------------------------------
