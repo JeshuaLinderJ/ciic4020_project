@@ -6,6 +6,7 @@ package models;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Station {
@@ -67,17 +68,17 @@ public class Station {
 
 //this and add will need the most changes later I think after the vehicle types are added 
 public boolean RemoveVehicle() {
+    Scanner scanner = new Scanner(System.in);
 
     System.out.println("Enter the owner's ID:");
     String ownerID = scanner.nextLine();
     // Check if the owner exists and if they are an owner or both
-    Operator owner = operatorMap.get(ownerID); 
+    // Operator owner = operatorMap.get(ownerID);
 
 
-   inventory.removeIf(p -> p.age == 33);//fix later with ne perameter
-
+    inventory.removeIf(owner -> ((Operator) owner).getId() == ownerID);
      
-    if (inventory.remove(vehicle)) {
+    if (inventory.remove(AddVehicle(null))) { // TODO: keep an eye on this for functionality
         currentOccupancy--;
        
         if (!waitlist.isEmpty()) {
