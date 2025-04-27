@@ -1,4 +1,4 @@
-Interface of Managment
+// Interface of Managment
 
 package interfaces;
 

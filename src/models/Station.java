@@ -1,4 +1,4 @@
-Station.java
+// Station.java // Commented to remove error on Main.java
 
 
 package models;
@@ -71,7 +71,7 @@ public boolean RemoveVehicle() {
     System.out.println("Enter the owner's ID:");
     String ownerID = scanner.nextLine();
     // Check if the owner exists and if they are an owner or both
-   Operator owner = operatorMap.get(ownerID); 
+    Operator owner = operatorMap.get(ownerID); 
 
 
    inventory.removeIf(p -> p.age == 33);//fix later with ne perameter

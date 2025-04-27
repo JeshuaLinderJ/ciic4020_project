@@ -1,11 +1,13 @@
 package services;
 
 import interfaces.StationManagement;
+import java.io.Console;
 import models.Reservation;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import models.Station;
+import java.util.Scanner;
 
 
 
@@ -40,12 +42,12 @@ public class StationManager implements StationManagement {
     // Interface Methods Implementation
     //--------------------------------------------------
     // @Override // commented to get rid of error
-    @Override
+    // @Override
     public Station getStation(String stationName) {
         return stations.get(stationName);
     };
     
-        @Override
+        // @Override
         public void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end) {
             // TODO: Implement reservation logic
             System.out.println("Reservation made for operator " + OperatorID + " and vehicle " + vehicleID);
@@ -63,7 +65,7 @@ public class StationManager implements StationManagement {
             System.out.println("Reservation " + reservationID + " canceled.");
         }
     
-        @Override
+        // @Override
         public void getVehicleAvailability(String station, LocalDateTime time) {
             // TODO: Implement vehicle availability check
             System.out.println("Checking availability at station " + station + " for time " + time);
@@ -75,8 +77,10 @@ public class StationManager implements StationManagement {
             System.out.println("Added operator " + OperatorID + " to waitlist for vehicle type " + vehicleType + " at station " + station);
         }
 
-        @Override
+        // @Override
         void addVehicle(  LocalDateTime time, HashMap<String, Operator> operatorMap){
+
+            Scanner scanner = new Scanner(System.in);
 
             Object vehicle = null;
 
@@ -95,22 +99,21 @@ public class StationManager implements StationManagement {
                             System.out.println("Enter the owner's ID:");
                             String ownerID = scanner.nextLine();
 
-        // Check if the owner exists and if they are an owner or both
-        Operator owner = operatorMap.get(ownerID); 
+                            // Check if the owner exists and if they are an owner or both
+                            Operator owner = operatorMap.get(ownerID); 
 
-        if (owner != null) {
-            if (owner.isOwner() || owner.isBoth()) { 
-                vehicle = new Bicycle(description, name, ownerID);//i dont know if this->name works better here, add eventually 
-                AddVehicle(vehicle);
-            } else {
-                System.out.println("The ID provided does not belong to an owner or both.");
-                           }
-        } else {
-            System.out.println("Owner ID not found.");
-        }
-        break;  // have to make sure this dosent contione ro the station stuff maybe make it a loop later or some
-    }
-                        };
+                            if (owner != null) {
+                                if (owner.isOwner() || owner.isBoth()) { 
+                                    vehicle = new Bicycle(description, name, ownerID);//i dont know if this->name works better here, add eventually 
+                                    AddVehicle(vehicle);
+                                } else {
+                                    System.out.println("The ID provided does not belong to an owner or both.");
+                                            }
+                            } else {
+                                System.out.println("Owner ID not found.");
+                            }
+                            break;  // have to make sure this dosent continue to the station stuff maybe make it a loop later or something
+                        }
                         case 2 -> "Scooter";//later repet the same stuff as before or above
                         case 3 -> "Skateboard";
                         default -> "Unknown";

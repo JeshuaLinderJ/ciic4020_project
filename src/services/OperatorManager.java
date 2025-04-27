@@ -32,7 +32,6 @@ public class OperatorManager implements OperatorManagement{
     public void addOperator(HashMap<String, Operator> operatorMap); {
         if (!isWithinServiceHours()) {
             System.out.println("The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.");
-            return;
         }
 
         boolean addingOperators = true;

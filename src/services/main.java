@@ -1,17 +1,14 @@
-main.java
-
-
-
-MAIN
-
-
-package main;
+package services;
 
 import models.Station;
-import models.Vehicle;
-import services.OperatorManager;
+import models.Operator;
+import models.stations.Stefani;
+import models.stations.StudentCenter;
+import models.stations.Biology;
+import models.stations.Business;
+import models.stations.ChemicalEngineering;
+import interfaces.Vehicle;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 //--------------------------------------------------
@@ -22,19 +19,15 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-
         OperatorManager operatorManager = new OperatorManager(); 
-
-        //ArrayList<Operator> operators = new ArrayList<>();
         HashMap<String, Operator> operatorMap = new HashMap<>();
 
-
         // Create station instances
-        Station stefani = new Station("Stefani", 40);
-        Station studentCenter = new Station("Student Center", 90);
-        Station biology = new Station("Biology", 35);
-        Station businessAdministration = new Station("Business Administration", 45);
-        Station chemicalEngineering = new Station("Chemical Engineering", 45);
+        Station stefani = new Stefani();
+        Station studentCenter = new StudentCenter();
+        Station biology = new Biology();
+        Station businessAdministration = new Business();
+        Station chemicalEngineering = new ChemicalEngineering();
 
         boolean running = true;
 
@@ -223,7 +216,7 @@ public class Main {
     //                 } else {
     //                     System.out.println("Failed to add vehicle. Station may be at full capacity.");
     //                 }
-
+                }
                 case 3 -> {
                     System.out.println("\nReservation Options:");
                     System.out.println("1 - Make a reservation");
@@ -246,10 +239,9 @@ public class Main {
                     running = false;
                 }
                 default -> System.out.println("Invalid main menu choice.");
+                }
             }
-        }
-
         scanner.close();
+        }
     }
-}
 }
