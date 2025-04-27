@@ -1,7 +1,10 @@
+Interface of Managment
+
 package interfaces;
 
 
-import java.time.LocalDateTime;
+
+import models.Station;
 import models.Reservation;
 
 public interface StationManagement {
@@ -12,9 +15,18 @@ public interface StationManagement {
     //i think they should go here 
     void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end);
     void modifyReservation(String reservationID, Reservation updated);
+
     void cancelReservation(String reservationID);
+
     void getVehicleAvailability(String station, LocalDateTime time);
+
     void addToWaitlist(String OperatorID, String vehicleType, String station);
+
+    void addVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
+    void removeVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
+    void modifyVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
+    void listVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
+
 };
 
 // ----------------------------------------------------------
