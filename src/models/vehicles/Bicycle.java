@@ -5,6 +5,9 @@ import java.util.UUID; // For generating unique IDs
 
 public class Bicycle implements Vehicle {
 
+    //--------------------------------------------------
+    // Instance Variables
+    //--------------------------------------------------
     private final String id;
     private final String type;
     private final String description;
@@ -13,7 +16,9 @@ public class Bicycle implements Vehicle {
     // private Schedule usageSchedule; // Placeholder for schedule implementation
     // private String ownerId; // Optional: Add if needed
 
+    //--------------------------------------------------
     // Constructor
+    //--------------------------------------------------
     public Bicycle(String description, String initialLocation) {
         this.id = "BIC-" + UUID.randomUUID().toString().substring(0, 8); // Example ID format
         this.type = "Bicycle";
@@ -23,8 +28,9 @@ public class Bicycle implements Vehicle {
         // Initialize schedule and owner if applicable
     }
 
-    // --- Implementation of Vehicle Interface Methods ---
-
+    //--------------------------------------------------
+    // Interface Methods Implementation
+    //--------------------------------------------------
     @Override
     public String getId() {
         return id;
@@ -60,8 +66,9 @@ public class Bicycle implements Vehicle {
         this.available = available;
     }
 
-    // --- Additional Methods (Example: Cost Calculation) ---
-
+    //--------------------------------------------------
+    // Public Methods
+    //--------------------------------------------------
     /**
      * Calculates the cost based on duration.
      * Bike: 3 credits first hour, 2 credits additional hours.

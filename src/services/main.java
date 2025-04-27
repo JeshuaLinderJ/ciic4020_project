@@ -1,14 +1,18 @@
-MAIN
+// MAIN
 
+package services;
 
-package main;
-
-import models.Station;
-import models.Vehicle;
-import services.OperatorManager;
+import interfaces.Vehicle;
 import java.util.Scanner;
+import models.Station;
+import models.vehicles.Bicycle;
+import models.vehicles.Scooter;
+import models.vehicles.Skateboard;
 
-public class Main {
+public class main {
+    //--------------------------------------------------
+    // Main Method
+    //--------------------------------------------------
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         OperatorManager operatorManager = new OperatorManager();
@@ -89,16 +93,21 @@ public class Main {
                     System.out.print("Your choice: ");
                     int vehicleType = Integer.parseInt(scanner.nextLine());
 
-                    String type = switch (vehicleType) {
-                        case 1 -> "Bicycle";
-                        case 2 -> "Scooter";
-                        case 3 -> "Skateboard";
-                        default -> "Unknown";
-                    };
-
-                    System.out.print("Enter vehicle ID: ");
-                    String vehicleId = scanner.nextLine();
-                    Vehicle newVehicle = new Vehicle(vehicleId, type);
+                    System.out.print("Enter vehicle description: ");
+                    String description = scanner.nextLine();
+                    
+                    Vehicle newVehicle = null;
+                    String stationName = chosenStation.getName();
+                    
+                    switch (vehicleType) {
+                        case 1 -> newVehicle = new Bicycle(description, stationName);
+                        case 2 -> newVehicle = new Scooter(description, stationName);
+                        case 3 -> newVehicle = new Skateboard(description, stationName);
+                        default -> {
+                            System.out.println("Invalid vehicle type.");
+                            continue;
+                        }
+                    }
 
                     if (chosenStation.addVehicle(newVehicle)) {
                         System.out.println("Vehicle added successfully to " + chosenStation.getName());

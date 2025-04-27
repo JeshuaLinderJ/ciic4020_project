@@ -8,17 +8,11 @@ public interface Vehicle {
 // Implementations will provide the fields
 
     String getId();
-
     String getType();
-
     String getDescription();
-
     String getLocation(); // Station name or ID
-
     boolean isAvailable();
-
     void setLocation(String location);
-
     void setAvailability(boolean available);
 
     // methods

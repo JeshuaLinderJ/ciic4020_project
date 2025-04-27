@@ -5,6 +5,9 @@ import java.util.UUID;
 
 public class Scooter implements Vehicle {
 
+    //--------------------------------------------------
+    // Instance Variables
+    //--------------------------------------------------
     private String id;
     private String type;
     private String description;
@@ -13,6 +16,9 @@ public class Scooter implements Vehicle {
     // private Schedule usageSchedule;
     // private String ownerId;
 
+    //--------------------------------------------------
+    // Constructor
+    //--------------------------------------------------
     public Scooter(String description, String initialLocation) {
         this.id = "SCO-" + UUID.randomUUID().toString().substring(0, 8); // TODO: Discuss vehicle ID, whether first 3 letters or some other format
         this.type = "Scooter";
@@ -21,6 +27,9 @@ public class Scooter implements Vehicle {
         this.available = true;
     }
 
+    //--------------------------------------------------
+    // Interface Methods Implementation
+    //--------------------------------------------------
     @Override
     public String getId() {
         return id;
@@ -56,6 +65,9 @@ public class Scooter implements Vehicle {
         this.available = available;
     }
 
+    //--------------------------------------------------
+    // Public Methods
+    //--------------------------------------------------
     /**
      * Calculates the cost based on duration.
      * Scooter: 2 credits first hour, 1 credit additional hours.
@@ -74,7 +86,9 @@ public class Scooter implements Vehicle {
         }
     }
 
-    // Optional: Override toString for better representation
+    //--------------------------------------------------
+    // Object Overrides
+    //--------------------------------------------------
     @Override
     public String toString() {
         return "Scooter{" +

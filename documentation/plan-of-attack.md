@@ -89,6 +89,7 @@ Business Admin Building: 45
 
 ### Upon Cancellation:
 	-	Next user on waitlist gets notified and assigned the vehicle
+	- 	Add requirement that user confirm acknowledgement so they don't lose time, after certain time has passed, continue to next person in waitlist
 
 ***
 
