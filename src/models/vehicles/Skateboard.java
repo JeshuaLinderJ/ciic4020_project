@@ -13,23 +13,32 @@ public class Skateboard implements Vehicle {
     private String description;
     private String location;
     private boolean available;
+    private String ownerid;
     // private Schedule usageSchedule;
     // private String ownerId;
 
     //--------------------------------------------------
     // Constructor
     //--------------------------------------------------
-    public Skateboard(String description, String initialLocation) {
+    public Skateboard(String description, String initialLocation, String OwnerId) {
         this.id = "SKB-" + UUID.randomUUID().toString().substring(0, 8);
         this.type = "Skateboard";
         this.description = description;
         this.location = initialLocation;
         this.available = true;
+        this.ownerid = OwnerId;
+
     }
 
     //--------------------------------------------------
     // Interface Methods Implementation
     //--------------------------------------------------
+
+    @Override
+    public String getOwnerid() {
+        return ownerid;
+    }
+
     @Override
     public String getId() {
         return id;
@@ -95,7 +104,8 @@ public class Skateboard implements Vehicle {
                "id='" + id + 
                "', description='" + description + 
                "', location='" + location + 
-               "', available=" + available + 
+               "', available=" + available + '\'' +
+               ",ownerid=" + ownerid +
                '}'; // Tabbed just to shorten the line for ease of reading
     }
 }

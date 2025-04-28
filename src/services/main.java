@@ -95,7 +95,7 @@ public class Main {
                     Station chosenStation = switch (stationChoice) {
                         case 1 -> {
                             if(StationMChoice == 1)
-                            stefani.AddVehicle(operatorMap);
+                            stefani.addVehicle(operatorMap);
 
                             else if(StationMChoice == 2)
                             stefani.removeVehicle(operatorMap);
@@ -109,7 +109,7 @@ public class Main {
 
                         case 2 ->  {
                             if(StationMChoice == 1)
-                            studentCenter.AddVehicle(operatorMap);
+                            studentCenter.addVehicle(operatorMap);
 
                             else if(StationMChoice == 2)
                             studentCenter.removeVehicle(operatorMap);
@@ -123,7 +123,7 @@ public class Main {
 
                         case 3 ->  {
                             if(StationMChoice == 1)
-                            biology.AddVehicle(operatorMap);
+                            biology.addVehicle(operatorMap);
 
                             else if(StationMChoice == 2)
                             biology.removeVehicle(operatorMap);
@@ -137,7 +137,7 @@ public class Main {
 
                         case 4 ->  {
                             if(StationMChoice == 1)
-                            businessAdministration.AddVehicle(operatorMap);
+                            businessAdministration.addVehicle(operatorMap);
 
                             else if(StationMChoice == 2)
                             businessAdministration.removeVehicle(operatorMap);
@@ -151,7 +151,7 @@ public class Main {
 
                         case 5 ->  {
                             if(StationMChoice == 1)
-                            chemicalEngineering.AddVehicle(operatorMap);
+                            chemicalEngineering.addVehicle(operatorMap);
 
                             else if(StationMChoice == 2)
                             chemicalEngineering.removeVehicle(operatorMap);
@@ -170,54 +170,11 @@ public class Main {
                         continue;
                     }
 
-    //                 System.out.println("\nWhat type of vehicle do you want to add?");
-    //                 System.out.println("1 - Bicycle");
-    //                 System.out.println("2 - Scooter");
-    //                 System.out.println("3 - Skateboard");
-    //                 System.out.print("Your choice: ");
-    //                 int vehicleType = Integer.parseInt(scanner.nextLine());
-
-    //                 String type = switch (vehicleType) {
-    //                     case 1 -> {
-    //                         System.out.println("Enter a description for the vehicle:");
-    //                         String description = scanner.nextLine();
-
-    //                         System.out.println("Enter the owner's ID:");
-    //                         String ownerID = scanner.nextLine();
-
-    //     // Check if the owner exists and if they are an owner or both
-    //     Operator owner = operatorMap.get(ownerID); 
-
-    //     if (owner != null) {
-    //         if (owner.isOwner() || owner.isBoth()) { 
-    //             System.out.println("Owner " + ownerID + " is valid. Description: " + description);
-
-    //         } else {
-    //             System.out.println("The ID provided does not belong to an owner or both.");
-    //                        }
-    //     } else {
-    //         System.out.println("Owner ID not found.");
-
-    //     }
-    //     break;  // have to make sure this dosent contione ro the station stuff maybe make it a loop later or some
-    // }
-    //                     };
-    //                     case 2 -> "Scooter";
-    //                     case 3 -> "Skateboard";
-    //                     default -> "Unknown";
-    //                 };
-
-    //                 System.out.print("Enter vehicle ID: ");
-    //                 String vehicleId = scanner.nextLine();
-    //                 Vehicle newVehicle = new Vehicle(vehicleId, type);
-
-    //                 if (chosenStation.addVehicle(newVehicle)) {
-    //                     System.out.println("Vehicle added successfully to " + chosenStation.getName());
-    //                 } else {
-    //                     System.out.println("Failed to add vehicle. Station may be at full capacity.");
-    //                 }
+   
                 }
                 case 3 -> {
+                    boolean ismody = flase;
+                    String modid = null;
                     System.out.println("\nReservation Options:");
                     System.out.println("1 - Make a reservation");
                     System.out.println("2 - Modify a reservation");
@@ -247,7 +204,7 @@ public class Main {
                     Station chosenStation = switch (stationChoice) {
                         case 1 -> {
                             if(resChoice == 1)
-                            stefani.makeReservation(operatorMap);
+                            stefani.makeReservation(operatorMap, ismody, modid);
 
                             else if(resChoice == 2)
                             stefani.modifyReservation(operatorMap);
@@ -261,7 +218,7 @@ public class Main {
 
                         case 2 ->  {
                             if(resChoice == 1)
-                            studentCenter.makeReservation(operatorMap);
+                            studentCenter.makeReservation(operatorMap, ismody, modid);
 
                             else if(resChoice == 2)
                             studentCenter.modifyReservation(operatorMap);
@@ -275,7 +232,7 @@ public class Main {
 
                         case 3 ->  {
                             if(resChoice == 1)
-                            biology.makeReservation(operatorMap);
+                            biology.makeReservation(operatorMap, ismody, modid);
 
                             else if(resChoice == 2)
                             biology.modifyReservation(operatorMap);
@@ -289,7 +246,7 @@ public class Main {
 
                         case 4 ->  {
                             if(resChoice == 1)
-                            businessAdministration.makeReservation(operatorMap);
+                            businessAdministration.makeReservation(operatorMap, ismody, modid);
 
                             else if(resChoice == 2)
                             businessAdministration.modifyReservation(operatorMap);
@@ -303,7 +260,7 @@ public class Main {
 
                         case 5 ->  {
                             if(resChoice == 1)
-                            chemicalEngineering.makeReservation(operatorMap);
+                            chemicalEngineering.makeReservation(operatorMap, ismody, modid);
 
                             else if(resChoice == 2)
                             chemicalEngineering.modifyReservation(operatorMap);
@@ -332,4 +289,4 @@ public class Main {
             }
         scanner.close();
     }
-}
+

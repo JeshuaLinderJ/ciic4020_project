@@ -16,19 +16,19 @@ public interface StationManagement {
     //Station getStation(String stationName);
 
     //i think they should go here 
-    void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end);
-    void modifyReservation(String reservationID, Reservation updated);
+    void .makeReservation(HashMap<String, Operator> operatorMap,boolean ismody, String modid);
+    void modifyReservation(HashMap<String, Operator> operatorMap);
 
-    void cancelReservation(String reservationID);
+    void cancelReservation(HashMap<String, Operator> operatorMap);
 
     void getVehicleAvailability(String station, LocalDateTime time);
 
-    void addToWaitlist(String OperatorID, String vehicleType, String station);
+    void addToWaitlist(HashMap<String, Operator> operatorMap);
 
-    void addVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
-    void removeVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
-    void modifyVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
-    void listVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap);
+    void addVehicle(HashMap<String, Operator> operatorMap);
+    void removeVehicle( HashMap<String, Operator> operatorMap);
+    void modifyVehicle(HashMap<String, Operator> operatorMap);
+    void listVehicle( HashMap<String, Operator> operatorMap);
 
 };
 

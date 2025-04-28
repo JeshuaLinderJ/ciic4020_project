@@ -13,24 +13,33 @@ public class Bicycle implements Vehicle {
     private final String description;
     private String location; // Station name or ID
     private boolean available;
+    private String ownerid;
     // private Schedule usageSchedule; // Placeholder for schedule implementation
     // private String ownerId; // Optional: Add if needed
 
     //--------------------------------------------------
     // Constructor
     //--------------------------------------------------
-    public Bicycle(String description, String initialLocation) {
+    public Bicycle(String description, String initialLocation, String OwnerId) {
         this.id = "BIC-" + UUID.randomUUID().toString().substring(0, 8); // Example ID format
         this.type = "Bicycle";
         this.description = description;
         this.location = initialLocation;
-        this.available = true; // Assume available initially
+        this.available = true; 
+        this.ownerid = OwnerId;
+        // Assume available initially
         // Initialize schedule and owner if applicable
     }
 
     //--------------------------------------------------
     // Interface Methods Implementation
     //--------------------------------------------------
+    @Override
+    public String getOwnerid() {
+        return ownerid;
+    }
+    
+    
     @Override
     public String getId() {
         return id;
@@ -98,7 +107,8 @@ public class Bicycle implements Vehicle {
                "id='" + id + '\'' +
                ", description='" + description + '\'' +
                ", location='" + location + '\'' +
-               ", available=" + available +
+               ", available=" + available + '\'' +
+               ",ownerid=" + ownerid +
                '}'; // Tabbed just to shorten the line for ease of reading
     }
 }

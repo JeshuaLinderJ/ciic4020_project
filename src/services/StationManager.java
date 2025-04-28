@@ -49,7 +49,7 @@ public class StationManager implements StationManagement {
     };
     
         // @Override
-        public void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end) {
+        public void makeReservation(HashMap<String, Operator> operatorMap, boolean mod, String MODid) {
             // TODO: Implement reservation logic
             System.out.println("Reservation made for operator " + OperatorID + " and vehicle " + vehicleID);
 
@@ -140,6 +140,8 @@ public class StationManager implements StationManagement {
                                         String userResponseconfirm = scanner.nextLine().toLowerCase();
 
                                         if (userResponse.equals("yes")) {
+
+                                            if(!mod){
                                             System.out.print("Enter client ID: ");
                                             String Id = scanner.nextLine();
 
@@ -158,6 +160,12 @@ public class StationManager implements StationManagement {
                                       } else {
                                             System.out.println("The ID provided does not belong to a client or both or you alreadya are reserveing one.");
                                               }
+                                            }
+                                            else{
+                                            reservation.put(MODid, bicycle);
+                                            }
+
+
                                                 } 
                                                 else {
                                             System.out.println("Owner ID not found.");
@@ -245,6 +253,8 @@ public class StationManager implements StationManagement {
                                         String userResponseconfirm = scanner.nextLine().toLowerCase();
 
                                         if (userResponse.equals("yes")) {
+
+                                            if(!mod){
                                             System.out.print("Enter client ID: ");
                                             String Id = scanner.nextLine();
 
@@ -263,6 +273,10 @@ public class StationManager implements StationManagement {
                                       } else {
                                             System.out.println("The ID provided does not belong to a client or both or you alreadya are reserveing one.");
                                               }
+                                            }
+                                            else{
+                                            reservation.put(MODid, scooter);
+                                            }
                                                 } 
                                                 else {
                                             System.out.println("Owner ID not found.");
@@ -350,6 +364,7 @@ public class StationManager implements StationManagement {
                                         String userResponseconfirm = scanner.nextLine().toLowerCase();
 
                                         if (userResponse.equals("yes")) {
+                                            if(!mod){
                                             System.out.print("Enter client ID: ");
                                             String Id = scanner.nextLine();
 
@@ -368,7 +383,11 @@ public class StationManager implements StationManagement {
                                       } else {
                                             System.out.println("The ID provided does not belong to a client or both or you alreadya are reserveing one.");
                                               }
-                                                } 
+                                                }
+                                                else{
+                                                    reservation.put(MODid, skateboard);
+                                                    } 
+                                            }
                                                 else {
                                             System.out.println("Owner ID not found.");
                                           }
@@ -380,31 +399,15 @@ public class StationManager implements StationManagement {
                             };
                         default -> "Unknown";
                     };
-
-
-
-                    // for (Object item : inventory) {
-                    //     if (item instanceof Skateboard) {
-                    //         foundSkateboard = true;
-                    //         Skateboard skateboard = (Skateboard) item;  // Casting
-                    //         System.out.println(skateboard);
-                    //     }
-                    // }
-            
-                    // // If no skateboard is found, print this message
-                    // if (!foundSkateboard) {
-                    //     System.out.println("No Skateboard found in the inventory.");
-                    // }
     
         @Override
-        public void modifyReservation(String reservationID, Reservation updated) {
-            // TODO: Implement modification logic
-
+        public void modifyReservation(HashMap<String, Operator> operatorMap) {
+            
+            boolean ismode = true;
             System.out.print("Enter client ID: ");
              String Id = scanner.nextLine();
             if (reservation.containsKey(Id)) {
-                reservatio.put( Id, makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end));
-
+                reservatio.put( Id, makeReservation( operatorMap, ismode , Id));
             } else {
                 System.out.println("resevation with ID " + studentID + " does not exist.");
             }
@@ -413,9 +416,9 @@ public class StationManager implements StationManagement {
         }
     
         @Override
-        public void cancelReservation(String reservationID) {
+        public void cancelReservation( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement cancellation logic
-            System.out.println("Reservation " + reservationID + " canceled.");
+           // System.out.println("Reservation " + reservationID + " canceled.");
 
             System.out.print("Enter client ID: ");
              String Id = scanner.nextLine();
@@ -430,19 +433,19 @@ public class StationManager implements StationManagement {
         }
     
         // @Override
-        public void getVehicleAvailability(String station, LocalDateTime time) {
+        public void getVehicleAvailability( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement vehicle availability check
             System.out.println("Checking availability at station " + station + " for time " + time);
         }
     
         @Override
-        public void addToWaitlist(String OperatorID, String vehicleType, String station) {
+        public void addToWaitlist( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement waitlist logic
             System.out.println("Added operator " + OperatorID + " to waitlist for vehicle type " + vehicleType + " at station " + station);
         }
 
         // @Override
-        void addVehicle(  LocalDateTime time, HashMap<String, Operator> operatorMap){
+        void addVehicle( HashMap<String, Operator> operatorMap){
 
             Scanner scanner = new Scanner(System.in);
 
@@ -468,7 +471,7 @@ public class StationManager implements StationManagement {
 
                             if (owner != null) {
                                 if (owner.isOwner() || owner.isBoth()) { 
-                                    vehicle = new Bicycle(description, name, ownerID);//i dont know if this->name works better here, add eventually 
+                                    Object vehicle = new Bicycle(description, name, ownerID);//i dont know if this->name works better here, add eventually 
                                     AddVehicle(vehicle);
                                 } else {
                                     System.out.println("The ID provided does not belong to an owner or both.");
@@ -478,20 +481,55 @@ public class StationManager implements StationManagement {
                             }
                             break;  // have to make sure this dosent continue to the station stuff maybe make it a loop later or something
                         }
-                        case 2 -> "Scooter";//later repet the same stuff as before or above
-                        case 3 -> "Skateboard";
+                        case 2 -> {
+                            System.out.println("Enter a description for the vehicle:");
+                            String description = scanner.nextLine();
+
+                            System.out.println("Enter the owner's ID:");
+                            String ownerID = scanner.nextLine();
+
+                            // Check if the owner exists and if they are an owner or both
+                            Operator owner = operatorMap.get(ownerID); 
+
+                            if (owner != null) {
+                                if (owner.isOwner() || owner.isBoth()) { 
+                                    Object vehicle = new Scooter(description, name, ownerID);//i dont know if this->name works better here, add eventually 
+                                    AddVehicle(vehicle);
+                                } else {
+                                    System.out.println("The ID provided does not belong to an owner or both.");
+                                            }
+                            } else {
+                                System.out.println("Owner ID not found.");
+                            }
+                            break;  // have to make sure this dosent continue to the station stuff maybe make it a loop later or something
+                        };//later repet the same stuff as before or above
+                        case 3 ->{
+                            System.out.println("Enter a description for the vehicle:");
+                            String description = scanner.nextLine();
+
+                            System.out.println("Enter the owner's ID:");
+                            String ownerID = scanner.nextLine();
+
+                            // Check if the owner exists and if they are an owner or both
+                            Operator owner = operatorMap.get(ownerID); 
+
+                            if (owner != null) {
+                                if (owner.isOwner() || owner.isBoth()) { 
+                                    Object vehicle = new Skateboard(description, name, ownerID);//i dont know if this->name works better here, add eventually 
+                                    AddVehicle(vehicle);
+                                } else {
+                                    System.out.println("The ID provided does not belong to an owner or both.");
+                                            }
+                            } else {
+                                System.out.println("Owner ID not found.");
+                            }
+                            break;;
                         default -> "Unknown";
                     };
 
-                   
-
-
-
-
-
 
                     @Override
-                    public  void modifyVehicle( HashMap<String, Operator> operatorMap, ) {
+                    public  void modifyVehicle( HashMap<String, Operator> operatorMap ) {
 
                         System.out.println("Enter the owner's ID:");
                             String ownerID = scanner.nextLine();
@@ -501,26 +539,15 @@ public class StationManager implements StationManagement {
 
         if (owner != null) {
             if (owner.isOwner() || owner.isBoth())
-                
-                // if (operatorMap.containsKey(studentID)) {
-                //     Operator operator = createOperatorFromInput();
-                
-                //     //the id should be removed from the suff or something since it being used as the key
-                //     operatorMap.put(studentID, operator);
-                // } else {
-                //     System.out.println("Operator with ID " + studentID + " does not exist.");
-                // }
-                //         }
-                
                     @Override
-                    public  void removeVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap){
+                    public  void removeVehicle(HashMap<String, Operator> operatorMap){
 
                         RemoveVehicle();
 
       
                 
                     @Override
-                    public void listVehicle(LocalDateTime time, HashMap<String, Operator> operatorMap) {
+                    public void listVehicle(HashMap<String, Operator> operatorMap){
                 
                 printInventory();
 
@@ -530,3 +557,5 @@ public class StationManager implements StationManagement {
         }
     }
 }
+        }
+    }
