@@ -8,7 +8,7 @@ public interface Vehicle {
 // Implementations will provide the fields
 
     String getId();
-    String ownerid();
+    String getOwnerid();
     String getType();
     String getDescription();
     String getLocation(); // Station name or ID
