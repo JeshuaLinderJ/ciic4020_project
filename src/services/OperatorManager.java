@@ -73,19 +73,19 @@ public class OperatorManager implements OperatorManagement{
      * @return A new Operator object populated with user input
      */
     private Operator createOperatorFromInput() {
-        System.out.print("Enter your name: ");
+        System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Enter your ID(Student number or any other ID): ");
+        System.out.print("Enter  ID(Student number or any other ID): ");
         String id = scanner.nextLine();
 
-        System.out.print("Enter your UPR Email: ");
+        System.out.print("Enter UPR Email: ");
         String uprEmail = scanner.nextLine();
 
-        System.out.print("Enter your Phone Number: ");
+        System.out.print("Enter  Phone Number: ");
         String phoneNum = scanner.nextLine();
 
-        System.out.println("What would you like to be registered as?");
+        System.out.println("What would they like to be registered as?");
         System.out.println("Press 1: Client");
         System.out.println("Press 2: Owner");
         System.out.println("Press 3: both");
@@ -103,7 +103,7 @@ public class OperatorManager implements OperatorManagement{
                 isOwner = true;
                 isBoth = true;
             }
-            default -> System.out.println("Invalid option. Defaulting to reservation only.");
+            default -> System.out.println("error.");
         }
 
         System.out.print("Enter initial credit amount (e.g. 50.00): ");
@@ -148,7 +148,7 @@ if (operatorMap.containsKey(studentID)) {
 
     operatorMap.put(studentID, operator);
 } else {
-    System.out.println("Operator with ID " + studentID + " does not exist.");
+    System.out.println("Clietn/owner with ID " + studentID + " does not exist.");
 }
         }
 
@@ -169,7 +169,7 @@ if (operatorMap.containsKey(studentID)) {
     public void listRegisteredOperators(HashMap<String, Operator> operatorMap) {
 
 
-        if (operatorMap.isEmpty()) {
+        if (!operatorMap.isEmpty()) {
             for (Map.Entry<String, Operator> entry : operatorMap.entrySet()) {
                 String key = entry.getKey();          // The ID (key)
                 Operator value = entry.getValue();   // The Operator (value)
@@ -179,7 +179,7 @@ if (operatorMap.containsKey(studentID)) {
             }
         }
         else {
-                 System.out.println("The operator map is not empty.");
+                 System.out.println("The operator map is empty.");
         }
 }
 
