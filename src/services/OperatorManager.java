@@ -1,9 +1,9 @@
 package services;
 
-import models.Operator;
 import interfaces.OperatorManagement;
 import java.time.*;
 import java.util.*;
+import models.Operator;
 
 /**
  * USER MANAGEMENT IMPLEMENTATION
@@ -33,8 +33,8 @@ public class OperatorManager implements OperatorManagement{
     //This creates a client owner or both it’s called in Maine and it uses the #map operator from Maine. 
     // It also uses a function called create operator from input and add the operator to the operator queue an ad to the operator hash
     //  map.
-    @Override
-    public void addOperator(HashMap<String, Operator> operatorMap); {
+    // @Override
+    public void addOperator(HashMap<String, Operator> operatorMap) {
         if (!isWithinServiceHours()) {
             System.out.println("The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.");
         }
@@ -140,7 +140,7 @@ public class OperatorManager implements OperatorManagement{
     //--------------------------------------------------
 
     //Modifies a pre-existing clients and owners , called by main
-    @Override
+    // @Override
     public void modifyOperator(String studentID, HashMap<String, Operator> operatorMap) {
 
 if (operatorMap.containsKey(studentID)) {
@@ -153,7 +153,7 @@ if (operatorMap.containsKey(studentID)) {
         }
 
         //delete a pre-existing clients and owners , called by main
-    @Override
+    // @Override
     public void deleteOperator(String studentID, HashMap<String, Operator> operatorMap){
         if (operatorMap.containsKey(studentID)){
             
@@ -165,21 +165,49 @@ if (operatorMap.containsKey(studentID)) {
     }
 
     // shows all clients and owners in the operatorMap, called by main
-    @Override
+    // @Override
     public void listRegisteredOperators(HashMap<String, Operator> operatorMap) {
 
 
         if (operatorMap.isEmpty()) {
-        for (Map.Entry<String, Operator> entry : operatorMap.entrySet()) {
-            String key = entry.getKey();          // The ID (key)
-            Operator value = entry.getValue();   // The Operator (value)
-        
-            // Displaying the key and value (you can customize this)
-            System.out.println("ID: " + key + ", Name: " + value.getName() + ", Phone: " + value.getPhoneNum());
+            for (Map.Entry<String, Operator> entry : operatorMap.entrySet()) {
+                String key = entry.getKey();          // The ID (key)
+                Operator value = entry.getValue();   // The Operator (value)
+            
+                // Displaying the key and value (you can customize this)
+                System.out.println("ID: " + key + ", Name: " + value.getName() + ", Phone: " + value.getPhoneNumber());
+            }
         }
         else {
                  System.out.println("The operator map is not empty.");
+        }
+}
+
+
+    @Override
+    public void addOperator(Operator Operator) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addOperator'");
     }
-}
-}
+
+
+    @Override
+    public void modifyOperator(String studentID, Operator updatedOperator) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modifyOperator'");
+    }
+
+
+    @Override
+    public void deleteOperator(String studentID) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteOperator'");
+    }
+
+
+    @Override
+    public void listRegisteredOperators() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'listRegisteredOperators'");
+    }
 }

@@ -7,7 +7,6 @@ package interfaces;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import models.Operator;
-import models.Reservation;
 
 
 public interface StationManagement {
@@ -16,7 +15,7 @@ public interface StationManagement {
     //Station getStation(String stationName);
 
     //i think they should go here 
-    void .makeReservation(HashMap<String, Operator> operatorMap,boolean ismody, String modid);
+    void makeReservation(HashMap<String, Operator> operatorMap,boolean ismody, String modid);
     void modifyReservation(HashMap<String, Operator> operatorMap);
 
     void cancelReservation(HashMap<String, Operator> operatorMap);
