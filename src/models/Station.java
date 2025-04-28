@@ -18,7 +18,11 @@ public class Station {
     private int currentOccupancy;
 
     private Set<Object> inventory;
-    private Queue<Object> waitlist;
+
+    
+    private Queue<Object> waitlistbicy;
+    private Queue<Object> waitlistscoo;
+    private Queue<Object> waitlistskate;
 
 
     //--------------------------------------------------
@@ -29,7 +33,9 @@ public class Station {
         this.capacity = capacity;
         this.currentOccupancy = 0;
         this.inventory = new HashSet<>();
-        this.waitlist = new LinkedList<>();
+        this.waitlistbicy = new LinkedList<>();
+        this.waitlistscoo = new LinkedList<>();
+        this.waitlistskate = new LinkedList<>();
     };
 
 
@@ -52,21 +58,16 @@ public class Station {
     // Public Methods
     //--------------------------------------------------
 
-    public boolean AddVehicle(Object vehicle) {
+    public void AddVehicle(Object vehicle) {
         if (currentOccupancy < capacity) {
-            inventory.add(vehicle);
+            //inventory.add(vehicle);
             currentOccupancy++;
-            return true;
-
-        } else {
-            waitlist.add(vehicle);
-            return false;
-        }//maybe deleet or change this 
+   
 };
 
 
 //this and add will need the most changes later I think after the vehicle types are added 
-public boolean RemoveVehicle() {
+public void RemoveVehicle() {
 
     System.out.println("Enter the owner's ID:");
     String ownerID = scanner.nextLine();
@@ -74,22 +75,20 @@ public boolean RemoveVehicle() {
    Operator owner = operatorMap.get(ownerID); 
 
 
-   inventory.removeIf(p -> p.age == 33);//fix later with ne perameter
+   inventory.removeIf(owner -> owner.getId() == ownerID);//fix later with ne perameter
 
-     
-    if (inventory.remove(vehicle)) {
+   public void setProfit(double profit) { this.profit += profit; }
+   // if (inventory.remove(vehicle)) {
         currentOccupancy--;
        
-        if (!waitlist.isEmpty()) {
-            Object nextVehicle = waitlist.poll();
-            inventory.add(nextVehicle);
-            currentOccupancy++;
+       //if (!waitlist.isEmpty()) {
+           // Object nextVehicle = waitlist.poll();
+           // inventory.add(nextVehicle);
+           // currentOccupancy++;
             //revmove this later
            
-        };
-        return true;
-    };
-    return false;
+       // };
+       }
 };
 //this can be inrpoved later to better display the inventory
 public void printInventory() {
@@ -98,7 +97,7 @@ public void printInventory() {
 
 public Queue<Object> getWaitlist() {
     return waitlist;
-    };
+    };//make the other waitlists
 };
 
 

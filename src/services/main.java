@@ -233,12 +233,101 @@ public class Main {
                     System.out.print("Your choice: ");
                     int resChoice = Integer.parseInt(scanner.nextLine());
 
-                    switch (resChoice) {
-                        case 1 -> System.out.println("Reservation logic placeholder.");
-                        case 2 -> System.out.println("Modify reservation placeholder.");
-                        case 3 -> System.out.println("Cancel reservation placeholder.");
-                        case 4 -> System.out.println("Check vehicle availability placeholder.");
-                        default -> System.out.println("Invalid reservation choice.");
+                    //switch (resChoice) {
+                    System.out.println("\nWhere would you like to work with");
+                    System.out.println("1 - Stefani");
+                    System.out.println("2 - Student Center");
+                    System.out.println("3 - Biology");
+                    System.out.println("4 - Business Administration");
+                    System.out.println("5 - Chemical Engineering");
+                    System.out.print("Your choice: ");
+                    int stationChoice = Integer.parseInt(scanner.nextLine());
+
+
+                    void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end);
+    void modifyReservation(String reservationID, Reservation updated);
+
+    void cancelReservation(String reservationID);
+
+    void getVehicleAvailability(String station, LocalDateTime time);
+
+                    Station chosenStation = switch (stationChoice) {
+                        case 1 -> {
+                            if(resChoice == 1)
+                            stefani.makeReservation(operatorMap);
+
+                            else if(resChoice == 2)
+                            stefani.modifyReservation(operatorMap);
+
+                            if(resChoice == 3)
+                            stefani.cancelReservation(operatorMap);
+
+                            if(resChoice == 4)
+                            stefani.listVehicle(operatorMap);
+                        }
+
+                        case 2 ->  {
+                            if(resChoice == 1)
+                            studentCenter.makeReservation(operatorMap);
+
+                            else if(resChoice == 2)
+                            studentCenter.modifyReservation(operatorMap);
+
+                            if(resChoice == 3)
+                            studentCenter.cancelReservation(operatorMap);
+
+                            if(resChoice == 4)
+                            studentCenter.listVehicle(operatorMap);
+                        }
+
+                        case 3 ->  {
+                            if(resChoice == 1)
+                            biology.makeReservation(operatorMap);
+
+                            else if(resChoice == 2)
+                            biology.modifyReservation(operatorMap);
+
+                            if(resChoice == 3)
+                            biology.cancelReservation(operatorMap);
+
+                            if(resChoice == 4)
+                            biology.listVehicle(operatorMap);
+                        }
+
+                        case 4 ->  {
+                            if(resChoice == 1)
+                            businessAdministration.makeReservation(operatorMap);
+
+                            else if(resChoice == 2)
+                            businessAdministration.modifyReservation(operatorMap);
+
+                            if(resChoice == 3)
+                            businessAdministration.cancelReservation(operatorMap);
+
+                            if(resChoice == 4)
+                            businessAdministration.listVehicle(operatorMap);
+                        }
+
+                        case 5 ->  {
+                            if(resChoice == 1)
+                            chemicalEngineering.makeReservation(operatorMap);
+
+                            else if(resChoice == 2)
+                            chemicalEngineering.modifyReservation(operatorMap);
+
+                            if(resChoice == 3)
+                            chemicalEngineering.cancelReservation(operatorMap);
+
+                            if(resChoice == 4)
+                            chemicalEngineering.listVehicle(operatorMap);
+                        }
+                        default -> null;
+                    };
+
+                    if (chosenStation == null) {
+                        System.out.println("Invalid station choice.");
+                        continue;
+                    }
                     }
                 }
                 case 0 -> {
@@ -251,5 +340,4 @@ public class Main {
 
         scanner.close();
     }
-}
 }
