@@ -134,7 +134,7 @@ The system includes a test mode that can be enabled to bypass service hour restr
 ## Future Enhancements
 
 - Graphical user interface
-- Database integration for persistent storage
-- Mobile application for client reservations
-- Advanced analytics and reporting
-- Payment processing integration
+- Database integration for persistent storage (caching)
+- Mobile application/web application (PWA)
+- Advanced analytics and reporting (time per method ms measurement)
+- Payment processing integration (stripe or some other alternative)
