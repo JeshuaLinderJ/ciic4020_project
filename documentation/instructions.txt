@@ -12,12 +12,12 @@ The electric vehicle user community at the College has realized this is an oppor
 They have decided to establish a system for sharing their electric vehicles with the rest of the campus community while they are not using them. This will require a system that matches vehicles with users by setting a usage schedule and location where the vehicle is available on campus.
 
 In general terms:
-•	The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.
-•	The 3 types of electric vehicles to be used are:
+-	The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.
+-	The 3 types of electric vehicles to be used are:
 o	Bicycle
 o	Scooter
 o	Skateboard
-•	Five stations will be established throughout campus, each with a limited capacity:
+-	Five stations will be established throughout campus, each with a limited capacity:
 o	Stefani Building (capacity: 40)
 o	Student Center (capacity: 90)
 o	Biology Building (capacity: 35)
@@ -26,10 +26,10 @@ o	Business Administration Building (capacity: 45)
  
 Assignment:
 Implement a reservation system for electric vehicles. The system will manage vehicle availability, customer reservations, and a waitlist for periods when no vehicles are available. The system must allow the operator to:
-•	Reserve vehicles
-•	Modify reservations
-•	Cancel reservations
-•	View the availability of vehicles at a given time
+-	Reserve vehicles
+-	Modify reservations
+-	Cancel reservations
+-	View the availability of vehicles at a given time
  
 Implementation
 1.	You must write your program in Java (you may use the classes and methods presented in class)
@@ -38,9 +38,9 @@ o	You may use the java.time package for time handling
 3.	The system must be implemented from the perspective of an operator, who will make reservations on behalf of users.
 
 This operator can:
-•	Add, modify, and delete users
-•	Add, modify, and delete vehicles
-•	Add, modify, and cancel reservations
+-	Add, modify, and delete users
+-	Add, modify, and delete vehicles
+-	Add, modify, and cancel reservations
 o	When making or modifying a reservation:
 	Show the user the vehicles that are still available and their cost
 	If there are no vehicles available, offer the user the option to be added to a waitlist
@@ -49,14 +49,14 @@ o	When making or modifying a reservation:
 	Inform the user of the total cost (no need to implement payment)
 	Reserve the vehicle for the specified time
 o	If a reservation is canceled, allow the vehicle to be taken by someone on the waitlist
-•	Show a list of people who have used the system and their balance of expenses or income
-•	Show the list of vehicles in inventory and their owners
+-	Show a list of people who have used the system and their balance of expenses or income
+-	Show the list of vehicles in inventory and their owners
  
 Additionally, the system must show:
-•	Registered people
-•	Vehicles and the period for which they are reserved
-•	Stations and the vehicles at each one
-•	The reservation transactions made
+-	Registered people
+-	Vehicles and the period for which they are reserved
+-	Stations and the vehicles at each one
+-	The reservation transactions made
  
 Design
 Components:
@@ -64,22 +64,22 @@ These are the basic classes your program must have. You can create additional cl
 1.	Vehicle Class
 A “vehicle” class to represent each vehicle, with attributes such as:
 
-•	A unique ID code
-•	Type of vehicle
-•	Brief description
-•	Available usage schedule
-•	Location
-•	Any other identifier deemed necessary during development
+-	A unique ID code
+-	Type of vehicle
+-	Brief description
+-	Available usage schedule
+-	Location
+-	Any other identifier deemed necessary during development
 
 2.	User Class
 Users will be students from campus. Each user will have:
 
-•	Name
-•	Student number
-•	UPR email
-•	Phone number
-•	Any other necessary info
-•	Users can be:
+-	Name
+-	Student number
+-	UPR email
+-	Phone number
+-	Any other necessary info
+-	Users can be:
 o	Clients
 o	Vehicle owners
 o	Both owners and clients
@@ -93,9 +93,9 @@ Bike	3 credits	2 credits
 Scooter	2 credits	1 credit
 Skateboard	1 credit	0.5 credits
 General restrictions:
-•	The maximum continuous usage of any equipment by a user is 6 hours.
-•	No more than 2 vehicles per owner can be registered for rent.
-•	A person cannot rent more than 1 vehicle at a time.
+-	The maximum continuous usage of any equipment by a user is 6 hours.
+-	No more than 2 vehicles per owner can be registered for rent.
+-	A person cannot rent more than 1 vehicle at a time.
  
 Requirements:
 Your program must make use of:
@@ -109,9 +109,9 @@ You may add other structures if needed.
  
 Documentation and Comments
 You must document your program:
-•	Classes – Include:
+-	Classes – Include:
 o	At the top of each class, explain the structure of your class and the type of list(s) used and why (e.g., “An ArrayList was used to store…”).
-•	Methods – Include:
+-	Methods – Include:
 o	Brief explanation of what it does
 o	Parameters it receives
 o	What it returns
@@ -131,6 +131,6 @@ o	If your group presents late: you lose 10% of the available points.
  
 Academic Integrity
 Do not share your code! You may discuss design and implementation strategies, but remember:
-•	If projects are found to be too similar, all parties involved will receive a grade of 0.
-•	If it is found that code was written using an AI tool like ChatGPT, you will also receive a grade of 0.
+-	If projects are found to be too similar, all parties involved will receive a grade of 0.
+-	If it is found that code was written using an AI tool like ChatGPT, you will also receive a grade of 0.
 
