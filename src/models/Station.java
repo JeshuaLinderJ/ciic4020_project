@@ -19,7 +19,11 @@ public class Station {
     private int currentOccupancy;
 
     private Set<Object> inventory;
-    private Queue<Object> waitlist;
+
+    
+    private Queue<Object> waitlistbicy;
+    private Queue<Object> waitlistscoo;
+    private Queue<Object> waitlistskate;
 
 
     //--------------------------------------------------
@@ -30,7 +34,9 @@ public class Station {
         this.capacity = capacity;
         this.currentOccupancy = 0;
         this.inventory = new HashSet<>();
-        this.waitlist = new LinkedList<>();
+        this.waitlistbicy = new LinkedList<>();
+        this.waitlistscoo = new LinkedList<>();
+        this.waitlistskate = new LinkedList<>();
     };
 
 
@@ -53,54 +59,48 @@ public class Station {
     // Public Methods
     //--------------------------------------------------
 
-    public boolean AddVehicle(Object vehicle) {
-        if (currentOccupancy < capacity) {
-            inventory.add(vehicle);
-            currentOccupancy++;
-            return true;
+public void AddVehicle(Object vehicle) {
+    if (currentOccupancy < capacity) {
+        //inventory.add(vehicle);
+        currentOccupancy++;
+    }
 
-        } else {
-            waitlist.add(vehicle);
-            return false;
-        }//maybe deleet or change this 
 };
-
-
 //this and add will need the most changes later I think after the vehicle types are added 
-public boolean RemoveVehicle() {
-    Scanner scanner = new Scanner(System.in);
+    public void RemoveVehicle() {
+        Scanner scanner = new Scanner(System.in);
 
-    System.out.println("Enter the owner's ID:");
-    String ownerID = scanner.nextLine();
-    // Check if the owner exists and if they are an owner or both
-    // Operator owner = operatorMap.get(ownerID);
+        System.out.println("Enter the owner's ID:");
+        String ownerID = scanner.nextLine();
+        // Check if the owner exists and if they are an owner or both
+        // Operator owner = operatorMap.get(ownerID);
 
 
-    inventory.removeIf(owner -> ((Operator) owner).getId() == ownerID);
-     
-    if (inventory.remove(AddVehicle(null))) { // TODO: keep an eye on this for functionality
-        currentOccupancy--;
-       
-        if (!waitlist.isEmpty()) {
-            Object nextVehicle = waitlist.poll();
-            inventory.add(nextVehicle);
-            currentOccupancy++;
-            //revmove this later
-           
+        inventory.removeIf(owner -> ((Operator) owner).getId() == ownerID);
+
+    // public void setProfit(double profit) { this.profit += profit; }
+    //     if(inventory.remove(AddVehicle(null))) { // TODO: keep an eye on this for functionality
+         currentOccupancy--;
+        
+        // if (!waitlist.isEmpty()) {
+        //     Object nextVehicle = waitlist.poll();
+        //     inventory.add(nextVehicle);
+        //     currentOccupancy++;
+        //     //  revmove this later
+            
         };
-        return true;
-    };
-    return false;
-};
-//this can be inrpoved later to better display the inventory
-public void printInventory() {
-    System.out.println(inventory);
-}
 
-public Queue<Object> getWaitlist() {
-    return waitlist;
-    };
+    //this can be inrpoved later to better display the inventory
+    public void printInventory() {
+        System.out.println(inventory);
+    }
+
+    public Queue<Object> getWaitlist() {
+        return getWaitlist(); // was originally waitlist
+    };//make the other waitlists
 };
+
+
 
 
 
