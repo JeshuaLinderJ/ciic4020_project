@@ -7,8 +7,7 @@ import models.Station;
 public class Biology extends Station {
     // Initialize with name and capacity
     public Biology() {
-        super("Biology", 35); // only 35 spots here
+        super("Biology", 35); // 35 vehicle capacity
     };
     
-    // Note: This is smaller than Stefani, might need to expand later?
 }

@@ -35,7 +35,7 @@ public class Station implements StationManagement {
     // Waitlists for each vehicle type
     private Queue<String> waitlistbicy; // people waiting for bikes
     private Queue<String> waitlistscoo; // people waiting for scooters  
-    private Queue<String> waitlistskate; // people waiting for skateboards
+    private Queue<String> waitlistskate; // people waiting for skateboards // first set of 3 
     
     private Scanner scanner = new Scanner(System.in);
     private ServiceHoursManager serviceHoursManager;
@@ -48,7 +48,7 @@ public class Station implements StationManagement {
         this.inventory = new HashSet<>(); // using HashSet for fast lookups
         this.waitlistbicy = new LinkedList<>();
         this.waitlistscoo = new LinkedList<>();
-        this.waitlistskate = new LinkedList<>();
+        this.waitlistskate = new LinkedList<>(); // heres the second set of 3
         this.serviceHoursManager = ServiceHoursManager.getInstance();
     }
 
@@ -1129,7 +1129,7 @@ public class Station implements StationManagement {
     // Public Methods
     //--------------------------------------------------
     
-    // Helpr methods for waitlist management
+    // Helper methods for waitlist management
     public Queue<String> getWaitlistBicycle() {
         return waitlistbicy;
     }

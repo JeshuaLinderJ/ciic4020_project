@@ -122,16 +122,10 @@ The system implements all required data structures:
 ## How to Run
 
 1. Compile the project:
-```
-./compile.sh
-```
 
-2. Run the application:
-```
-./build.sh
-```
+Debug Main.java/Run Main.java
 
-3. Follow the on-screen instructions to navigate the system
+2. Follow the on-screen instructions to navigate the system
 
 ## Test Mode
 

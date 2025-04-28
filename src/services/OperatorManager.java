@@ -14,7 +14,7 @@ public class OperatorManager implements OperatorManagement{
 
     // Our variables
     private Queue<Operator> operatorQueue = new LinkedList<>();
-    //private Map<String, Operator> registeredOperators = new HashMap<>();
+    //private Map<String, Operator> registeredOperators = new HashMap<>(); // got rid of the error?
     private Scanner scanner = new Scanner(System.in);
     private ServiceHoursManager svcHoursMgr = ServiceHoursManager.getInstance();
 
@@ -23,7 +23,7 @@ public class OperatorManager implements OperatorManagement{
      * Uses the operatorMap from main.java to store them
      */
     public void addOperator(HashMap<String, Operator> operatorMap) {
-        // Check hours first!
+        // Check hours first
         if (!svcHoursMgr.isWithinServiceHours()) {
             System.out.println("Operation not allowed outside of service hours (7:00 AM - 6:00 PM, Mon-Fri)");
             System.out.println("   Toggle test mode in the main menu to bypass this restriction.");

@@ -7,8 +7,7 @@ import models.Station;
 public class Business extends Station {
     // Basic constructor - just sets name and size
     public Business() {
-        super("Business Administration", 45); // 45 vehicle spaces
+        super("Business Administration", 45);
     };
     
-    // Business students tend to use this station a lot!
 }

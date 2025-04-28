@@ -205,7 +205,6 @@ public class ReservationManager implements ReservationOperations, UndoAction {
         // This would add the client to the appropriate waitlist at the station
         // We would use the station's waitlist queues (waitlistbicy, waitlistscoo, waitlistskate)
         
-        // For now, just a placeholder message
         System.out.println("Waitlist functionality to be implemented within Station class.");
     }
 

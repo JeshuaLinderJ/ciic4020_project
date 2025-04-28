@@ -7,8 +7,7 @@ import models.Station;
 public class ChemicalEngineering extends Station {
     // Simple constructor passes values to parent
     public ChemicalEngineering() {
-        super("Chemical Engineering", 45); // fixed the extra space in name
+        super("Chemical Engineering", 45);  // 45 vehicle capacity
     };
-    
-    // Engineers often grab vehicles early in the morning!
+
 }

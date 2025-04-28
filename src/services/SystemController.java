@@ -26,8 +26,8 @@ public class SystemController {
     private Station stefani;
     private Station studentCenter;
     private Station biology;
-    private Station businessAdm; // shortened name
-    private Station chemEng; // shortened this one too
+    private Station businessAdm;
+    private Station chemEng;
     
     /**
      * Sets everything up
