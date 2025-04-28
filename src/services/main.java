@@ -13,6 +13,12 @@ import java.util.HashMap;
 
 //--------------------------------------------------
 // Main Method
+// class main uses a lot of switch statements since it helps keep a bit of order for all the possible options of the operator could take. 
+// The whole operation is handled by a while loop that only functions while running is true giving the operator the option to quit the 
+// operation by selecting the appropriate option.
+
+// The hash map for the operator map was select the for the fact that it would be a lot easier to have a key referencing the client or 
+// owner that could be used to also link them to their reserved vehicle or registered vehicle
 //--------------------------------------------------
 
 public class Main {
@@ -32,6 +38,8 @@ public class Main {
         boolean running = true;
 
         while (running) {
+
+            //This asks you, which of the main operations you’d like to do
             System.out.println("\nSelect an option:");
             System.out.println("1 - Work with Clients");
             System.out.println("2 - Work withVehicles");
@@ -42,6 +50,9 @@ public class Main {
 
             switch (mainChoice) {
                 case 1 -> {
+
+
+                    //How would you wanna work with the clients
                     System.out.println("\nClient Management:");
                     System.out.println("1 - Add a client");
                     System.out.println("2 - Modify a client");
@@ -52,13 +63,10 @@ public class Main {
 
                     switch (clientChoice) {
                         case 1 -> operatorManager.addOperator(operatorMap);
-                       // operatorMap.put("John Doe", new Operator("John Doe", "001", "john@example.com", true, false, false, "123-456-7890"));
                         case 2 -> {
                             System.out.print("Enter client/Owner ID to modify: ");
                             String modId = scanner.nextLine();
                             operatorManager.modifyOperator( modId,operatorMap);
-                            //System.out.println("Modifying not fully implemented. Placeholder logic here.");
-                            // add
                         }
                         case 3 -> {
                             System.out.print("Enter client/Owner ID to delete: ");
@@ -71,6 +79,7 @@ public class Main {
                 }
                 case 2 -> {
 
+                    //What do you wanna do with the vehicles
                     System.out.println("\nStation Management:");
                     System.out.println("1 - Add a vehicle");
                     System.out.println("2 - Modify a vehicle");
@@ -80,9 +89,7 @@ public class Main {
                     int StationMChoice = Integer.parseInt(scanner.nextLine());
 
                    
-                    //String Intlocation;
-                    //System.out.println("\nWhere would you like to add a vehicle?");
-
+                    //Where would you like to add a vehicle
                     System.out.println("\nWhere would you like to work with");
                     System.out.println("1 - Stefani");
                     System.out.println("2 - Student Center");
@@ -169,55 +176,10 @@ public class Main {
                         System.out.println("Invalid station choice.");
                         continue;
                     }
-
-    //                 System.out.println("\nWhat type of vehicle do you want to add?");
-    //                 System.out.println("1 - Bicycle");
-    //                 System.out.println("2 - Scooter");
-    //                 System.out.println("3 - Skateboard");
-    //                 System.out.print("Your choice: ");
-    //                 int vehicleType = Integer.parseInt(scanner.nextLine());
-
-    //                 String type = switch (vehicleType) {
-    //                     case 1 -> {
-    //                         System.out.println("Enter a description for the vehicle:");
-    //                         String description = scanner.nextLine();
-
-    //                         System.out.println("Enter the owner's ID:");
-    //                         String ownerID = scanner.nextLine();
-
-    //     // Check if the owner exists and if they are an owner or both
-    //     Operator owner = operatorMap.get(ownerID); 
-
-    //     if (owner != null) {
-    //         if (owner.isOwner() || owner.isBoth()) { 
-    //             System.out.println("Owner " + ownerID + " is valid. Description: " + description);
-
-    //         } else {
-    //             System.out.println("The ID provided does not belong to an owner or both.");
-    //                        }
-    //     } else {
-    //         System.out.println("Owner ID not found.");
-
-    //     }
-    //     break;  // have to make sure this dosent contione ro the station stuff maybe make it a loop later or some
-    // }
-    //                     };
-    //                     case 2 -> "Scooter";
-    //                     case 3 -> "Skateboard";
-    //                     default -> "Unknown";
-    //                 };
-
-    //                 System.out.print("Enter vehicle ID: ");
-    //                 String vehicleId = scanner.nextLine();
-    //                 Vehicle newVehicle = new Vehicle(vehicleId, type);
-
-    //                 if (chosenStation.addVehicle(newVehicle)) {
-    //                     System.out.println("Vehicle added successfully to " + chosenStation.getName());
-    //                 } else {
-    //                     System.out.println("Failed to add vehicle. Station may be at full capacity.");
-    //                 }
                 }
                 case 3 -> {
+
+                    //Where the reservations are handled 
                     System.out.println("\nReservation Options:");
                     System.out.println("1 - Make a reservation");
                     System.out.println("2 - Modify a reservation");
@@ -226,7 +188,7 @@ public class Main {
                     System.out.print("Your choice: ");
                     int resChoice = Integer.parseInt(scanner.nextLine());
 
-                    //switch (resChoice) {
+                    //Where the reservations will be delegated to based on area
                     System.out.println("\nWhere would you like to work with");
                     System.out.println("1 - Stefani");
                     System.out.println("2 - Student Center");
@@ -235,14 +197,6 @@ public class Main {
                     System.out.println("5 - Chemical Engineering");
                     System.out.print("Your choice: ");
                     int stationChoice = Integer.parseInt(scanner.nextLine());
-
-
-                    void makeReservation(String OperatorID, String vehicleID, LocalDateTime start, LocalDateTime end);
-    void modifyReservation(String reservationID, Reservation updated);
-
-    void cancelReservation(String reservationID);
-
-    void getVehicleAvailability(String station, LocalDateTime time);
 
                     Station chosenStation = switch (stationChoice) {
                         case 1 -> {
@@ -323,6 +277,8 @@ public class Main {
                     }
                     }
                 }
+
+                //when you decide to finish 
                 case 0 -> {
                     System.out.println("Exiting program. Goodbye!");
                     running = false;
@@ -332,4 +288,4 @@ public class Main {
             }
         scanner.close();
     }
-}
+

@@ -28,6 +28,11 @@ public class OperatorManager implements OperatorManagement{
      //--------------------------------------------------
     // Interface Methods Implementation
     //--------------------------------------------------
+
+
+    //This creates a client owner or both it’s called in Maine and it uses the #map operator from Maine. 
+    // It also uses a function called create operator from input and add the operator to the operator queue an ad to the operator hash
+    //  map.
     @Override
     public void addOperator(HashMap<String, Operator> operatorMap); {
         if (!isWithinServiceHours()) {
@@ -104,23 +109,9 @@ public class OperatorManager implements OperatorManagement{
         System.out.print("Enter initial credit amount (e.g. 50.00): ");
         double credit = Double.parseDouble(scanner.nextLine());
 
-        //System.out.print("Enter number of reservations made: ");
-        //int reserved = Integer.parseInt(scanner.nextLine());
-
-        //System.out.print("Enter number of items registered: ");
-        //int registered = Integer.parseInt(scanner.nextLine());
-
-        //System.out.print("Enter profit amount (if any): ");
-        //double profit = Double.parseDouble(scanner.nextLine());
 
         Operator operator = new Operator(name, id, uprEmail, isOwner, isClient, isBoth, phoneNum);
         operator.setCredit(credit);
-        //operator.setReserved(reserved);
-        //operator.setRegistered(registered);
-        //operator.setProfit(profit);
-
-
-
          return operator;
     }
 
@@ -147,19 +138,21 @@ public class OperatorManager implements OperatorManagement{
     //--------------------------------------------------
     // Interface Methods Implementation (continued)
     //--------------------------------------------------
+
+    //Modifies a pre-existing clients and owners , called by main
     @Override
     public void modifyOperator(String studentID, HashMap<String, Operator> operatorMap) {
 
 if (operatorMap.containsKey(studentID)) {
     Operator operator = createOperatorFromInput();
 
-    //the id should be removed from the suff or something since it being used as the key
     operatorMap.put(studentID, operator);
 } else {
     System.out.println("Operator with ID " + studentID + " does not exist.");
 }
         }
 
+        //delete a pre-existing clients and owners , called by main
     @Override
     public void deleteOperator(String studentID, HashMap<String, Operator> operatorMap){
         if (operatorMap.containsKey(studentID)){
@@ -171,6 +164,7 @@ if (operatorMap.containsKey(studentID)) {
         }
     }
 
+    // shows all clients and owners in the operatorMap, called by main
     @Override
     public void listRegisteredOperators(HashMap<String, Operator> operatorMap) {
 

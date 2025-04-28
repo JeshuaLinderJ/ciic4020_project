@@ -29,7 +29,7 @@ public class Bicycle implements Vehicle {
     }
 
     //--------------------------------------------------
-    // Interface Methods Implementation
+    // // Interface Methods Implementation/getters
     //--------------------------------------------------
     @Override
     public String getId() {
