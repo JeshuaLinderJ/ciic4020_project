@@ -4,37 +4,36 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Represents a vehicle reservation in the system
+ * Tracks who reserved what, when, and how much it costs
+ */
 public class Reservation {
-    //--------------------------------------------------
-    // Instance Variables
-    //--------------------------------------------------
-    private String reservationId;
-    private String operatorId;
-    private String vehicleId;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private String stationLocation;
-    private double cost;
-    private boolean active;
+    // The important data fields
+    private String reservationId; // unique identifier
+    private String operatorId; // who made the reservation
+    private String vehicleId; // what they reserved
+    private LocalDateTime startTime; // when it starts
+    private LocalDateTime endTime; // when it ends
+    private String stationLocation; // where the vehicle is
+    private double cost; // how much it costs
+    private boolean active; // is it still valid?
 
-    //--------------------------------------------------
-    // Constructor
-    //--------------------------------------------------
+    // Create a new reservation
     public Reservation(String operatorId, String vehicleId, LocalDateTime startTime, 
                       LocalDateTime endTime, String stationLocation) {
+        // Generate random ID with RES prefix
         this.reservationId = "RES-" + UUID.randomUUID().toString().substring(0, 8);
         this.operatorId = operatorId;
         this.vehicleId = vehicleId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.stationLocation = stationLocation;
-        this.cost = 0.0; // Will be calculated separately
-        this.active = true;
+        this.cost = 0.0; // will calculate this later
+        this.active = true; // start as active
     }
 
-    //--------------------------------------------------
-    // Getters and Setters
-    //--------------------------------------------------
+    // Getters and setters
     public String getReservationId() {
         return reservationId;
     }
@@ -87,92 +86,94 @@ public class Reservation {
         this.active = active;
     }
 
-    //--------------------------------------------------
-    // Public Methods
-    //--------------------------------------------------
+    // Utility methods
     
     /**
-     * Calculates the duration of the reservation in minutes
-     * @return Duration in minutes
+     * Get how long the reservation is for (in minutes)
      */
     public long getDurationMinutes() {
         return Duration.between(startTime, endTime).toMinutes();
     }
     
     /**
-     * Validates if the reservation is within service hours (7:00 AM - 6:00 PM, Mon-Fri)
-     * @return True if valid, false otherwise
+     * Check if reservation is during allowed hours
+     * (7am-6pm weekdays only)
      */
     public boolean isWithinServiceHours() {
-        // Check if weekday (Monday = 1, Friday = 5)
-        int dayOfWeek = startTime.getDayOfWeek().getValue();
-        if (dayOfWeek > 5) {
-            return false; // Weekend
+        // Check day of week (1=Monday, 5=Friday)
+        int day = startTime.getDayOfWeek().getValue();
+        if (day > 5) {
+            return false; // it's a weekend
         }
         
-        // Check if within hours (7:00 AM - 6:00 PM)
-        int startHour = startTime.getHour();
-        int endHour = endTime.getHour();
+        // Check time (7am-6pm = 7-18 in 24hr format)
+        int startHr = startTime.getHour();
+        int endHr = endTime.getHour();
         
-        return startHour >= 7 && endHour <= 18;
+        return startHr >= 7 && endHr <= 18;
     }
     
     /**
-     * Validates if the reservation duration is within the 6-hour limit
-     * @return True if valid, false otherwise
+     * Make sure reservation isn't too long
+     * Max allowed is 6 hours
      */
     public boolean isValidDuration() {
         long hours = getDurationMinutes() / 60;
-        return hours <= 6;
+        return hours <= 6; // max 6 hours
     }
     
     /**
-     * Calculates the reservation cost based on vehicle type and duration
-     * @param vehicleType The type of vehicle (bicycle, scooter, skateboard)
-     * @return The calculated cost
+     * Figure out how much to charge based on vehicle type
+     * Different rates for each vehicle type
      */
     public double calculateCost(String vehicleType) {
-        long durationMinutes = getDurationMinutes();
-        double hours = Math.ceil((double) durationMinutes / 60.0);
+        long mins = getDurationMinutes();
+        double hours = Math.ceil((double) mins / 60.0);
         
+        // Each vehicle has different pricing
         switch (vehicleType.toLowerCase()) {
             case "bicycle":
+                // Bikes: 3 credits first hour, 2 credits after
                 if (hours <= 1) {
-                    this.cost = 3.0; // First hour cost
+                    this.cost = 3.0;
                 } else {
-                    this.cost = 3.0 + (hours - 1) * 2.0; // First hour + additional hours
+                    this.cost = 3.0 + (hours - 1) * 2.0;
                 }
                 break;
             case "scooter":
+                // Scooters: 2 credits first hour, 1 credit after
                 if (hours <= 1) {
-                    this.cost = 2.0; // First hour cost
+                    this.cost = 2.0;
                 } else {
-                    this.cost = 2.0 + (hours - 1) * 1.0; // First hour + additional hours
+                    this.cost = 2.0 + (hours - 1) * 1.0;
                 }
                 break;
             case "skateboard":
+                // Skateboards: 1 credit first hour, 0.5 credits after
                 if (hours <= 1) {
-                    this.cost = 1.0; // First hour cost
+                    this.cost = 1.0;
                 } else {
-                    this.cost = 1.0 + (hours - 1) * 0.5; // First hour + additional hours
+                    this.cost = 1.0 + (hours - 1) * 0.5;
                 }
                 break;
             default:
+                // Unknown type
                 this.cost = 0.0;
         }
         
         return this.cost;
     }
     
+    // For debugging/display
     @Override
     public String toString() {
         return "Reservation{" +
                "id='" + reservationId + '\'' +
-               ", operator='" + operatorId + '\'' +
+               ", user='" + operatorId + '\'' +
                ", vehicle='" + vehicleId + '\'' +
-               ", start=" + startTime +
-               ", end=" + endTime +
-               ", location='" + stationLocation + '\'' +
+               ", from=" + startTime +
+               ", to=" + endTime +
+               ", at='" + stationLocation + '\'' +
                ", cost=" + cost +
                ", active=" + active +
                '}';

@@ -1,44 +1,37 @@
 package models.vehicles;
 
 import interfaces.Vehicle;
-import java.util.UUID; // For generating unique IDs
+import java.util.UUID; // For unique IDs
 
 public class Bicycle implements Vehicle {
 
-    //--------------------------------------------------
-    // Instance Variables
-    //--------------------------------------------------
-    private final String id;
-    private final String type;
-    private final String description;
-    private String location; // Station name or ID
-    private boolean available;
-    private String ownerid;
-    // private Schedule usageSchedule; // Placeholder for schedule implementation
-    // private String ownerId; // Optional: Add if needed
+    // Main properties
+    private final String id; // cant change after creation
+    private final String type; // always "Bicycle" 
+    private final String description; // what it looks like
+    private String location; // which station it's at
+    private boolean available; // can be reserved?
+    private String ownerid; // who owns it
+    // might add these later:
+    // private Schedule usageSchedule;
+    // private String ownerId;
 
-    //--------------------------------------------------
-    // Constructor
-    //--------------------------------------------------
+    // Constructor - make a new bike
     public Bicycle(String description, String initialLocation, String OwnerId) {
-        this.id = "BIC-" + UUID.randomUUID().toString().substring(0, 8); // Example ID format
+        // Generate random ID with BIC prefix
+        this.id = "BIC-" + UUID.randomUUID().toString().substring(0, 8);
         this.type = "Bicycle";
         this.description = description;
         this.location = initialLocation;
-        this.available = true; 
+        this.available = true; // starts as available
         this.ownerid = OwnerId;
-        // Assume available initially
-        // Initialize schedule and owner if applicable
     }
 
-    //--------------------------------------------------
-    // // Interface Methods Implementation/getters
-    //--------------------------------------------------
+    // Interface methods - getters & setters
     @Override
     public String getOwnerid() {
         return ownerid;
     }
-    
     
     @Override
     public String getId() {
@@ -75,32 +68,29 @@ public class Bicycle implements Vehicle {
         this.available = available;
     }
 
-    //--------------------------------------------------
-    // Public Methods
-    //--------------------------------------------------
     /**
-     * Calculates the cost based on duration.
-     * Bike: 3 credits first hour, 2 credits additional hours.
-     * @param durationMinutes The duration of the rental in minutes.
-     * @return The calculated cost in credits.
+     * Calculate rental cost
+     * First hour: 3 credits
+     * Each additional hour: 2 credits
      */
     public double calculateCost(long durationMinutes) {
+        // sanity check
         if (durationMinutes <= 0) {
             return 0;
         }
+        
+        // Round up partial hours
         double hours = Math.ceil((double) durationMinutes / 60.0);
+        
         if (hours <= 1) {
-            return 3.0; // First hour cost
+            return 3.0; // just first hour
         } else {
-            return 3.0 + (hours - 1) * 2.0; // First hour + additional hours
+            // first hour + additional hours
+            return 3.0 + (hours - 1) * 2.0;
         }
     }
 
-    // --- Getters for other potential fields (Schedule, Owner) ---
-    // public Schedule getUsageSchedule() { return usageSchedule; }
-    // public String getOwnerId() { return ownerId; }
-
-    // Optional: Override toString for better representation
+    // For debugging and display
     @Override
     public String toString() {
         return "Bicycle{" +
@@ -108,7 +98,7 @@ public class Bicycle implements Vehicle {
                ", description='" + description + '\'' +
                ", location='" + location + '\'' +
                ", available=" + available + '\'' +
-               ",ownerid=" + ownerid +
-               '}'; // Tabbed just to shorten the line for ease of reading
+               ", ownerid=" + ownerid +
+               '}';
     }
 }

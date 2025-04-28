@@ -1,89 +1,149 @@
-# ciic4020_project
-Sistema de Reservación de Vehículos Eléctricos Particulares
+# Electric Vehicle Reservation System
+
+A comprehensive system for managing electric vehicle rentals across campus stations.
+
+## Team
 
 Jeshua Linder Jiménez    |   jeshua.linder@upr.edu
 Sebastian M. Seguí     |   sebastian.segui@upr.edu 
 
-***
+## Project Overview
 
-src/
-├── interfaces/
-│   ├── OperatorManagement.java
-│   ├── ReservationOperations.java
-│   ├── StationManagement.java
-│   ├── TransactionHistory.java
-│   ├── UndoAction.java
-│   └── Vehicle.java
-└── models/
-    ├── Operator.java
-    ├── Reservation.java
-    ├── Station.java
-    └── 
+This system allows operators to manage the reservation of electric vehicles (bicycles, scooters, and skateboards) across five campus stations. The system handles user management, vehicle inventory, reservations, and waitlists.
 
-(I'll change this when we've really begun implementing functions that get the ball rolling)
+### Features
 
-***
+- **User Management**: Add, modify, and delete users (clients and owners)
+- **Vehicle Management**: Add, modify, and delete vehicles at stations
+- **Reservation System**: Create, modify, and cancel reservations
+- **Waitlist Management**: Handle situations when vehicles are unavailable
+- **Service Hour Restrictions**: Operations limited to 7:00 AM - 6:00 PM, Monday-Friday
 
-# Branching Strategy I'd Like To Do (preferably)
+## Project Structure
 
-## Main Branches
-    main - Production-ready code
-    development - Integration branch for ongoing development
+```
+ciic4020_project/
+├── src/                        # Source code
+│   ├── interfaces/             # Core interfaces
+│   │   ├── OperatorManagement.java
+│   │   ├── ReservationOperations.java
+│   │   ├── StationManagement.java
+│   │   ├── TransactionHistory.java
+│   │   ├── UndoAction.java
+│   │   └── Vehicle.java
+│   ├── models/                 # Data models
+│   │   ├── Operator.java       # User representation
+│   │   ├── Reservation.java    # Reservation data
+│   │   ├── Station.java        # Base station class
+│   │   ├── stations/           # Specific campus locations
+│   │   │   ├── Biology.java
+│   │   │   ├── Business.java
+│   │   │   ├── ChemicalEngineering.java
+│   │   │   ├── Stefani.java
+│   │   │   └── StudentCenter.java
+│   │   └── vehicles/           # Vehicle types
+│   │       ├── Bicycle.java
+│   │       ├── Scooter.java
+│   │       └── Skateboard.java
+│   └── services/               # Business logic
+│       ├── Main.java           # Entry point
+│       ├── OperatorManager.java
+│       ├── ReservationManager.java
+│       ├── ServiceHoursManager.java
+│       ├── StationManager.java
+│       ├── SystemController.java
+│       └── UIManager.java
+├── bin/                        # Compiled classes
+├── documentation/              # Project documentation
+│   ├── instructions.txt        # Assignment requirements
+│   └── plan-of-attack.md       # Development plan
+├── test/                       # Testing framework
+│   ├── run_tests.bat           # Windows test runner
+│   ├── run_tests.sh            # Unix test runner
+│   └── services/               # Test implementations
+├── build.sh                    # Build script
+├── compile.sh                  # Compilation script
+└── README.md                   # This file
+```
 
-## Feature Branches
-###### Create feature branches for each component using the naming convention:
+## Core Components
 
-Examples:
+### 1. System Controller
 
-feature/vehicles/bicycle-implementation
-feature/reservation/scheduling-system
-feature/users/authentication
+The `SystemController` serves as the central coordinator of the entire system, connecting all components together and managing the program's flow.
 
-- There could also be debugging branches such as debug/reservation/repeat-output
+### 2. User Interface
 
-***
+The `UIManager` handles all user interaction, presenting menus and collecting input through a console interface.
 
-# Division of Work (subject to change as structure evolves)
+### 3. Service Hours Management
 
-## Vehicle System
-- Implement the Vehicle interface
-- Create concrete classes for Bicycle, Scooter, and Skateboard
-- Implement usage cost calculations
+The `ServiceHoursManager` enforces the system's operating hours (7:00 AM - 6:00 PM, Monday-Friday) with an optional test mode to bypass these restrictions.
 
-## User Management
-- Complete Operator model
-- Implement OperatorManagement interface
-- Create user types (Client, Owner, Both)
+### 4. User Management
 
-## Station Management
-- Enhance Station model
-- Implement StationManagement interface
-- Track vehicle inventory by station
+The `OperatorManager` handles user creation, modification, and deletion. Users can be clients, owners, or both.
 
-## Reservation System
-- Complete Reservation model
-- Implement ReservationOperations interface
-- Develop scheduling algorithms
+### 5. Vehicle System
 
-## Transaction & History
-- Implement TransactionHistory interface
-- Create payment and balance tracking
-- Develop logging system
+Three concrete vehicle classes implement the `Vehicle` interface:
+- `Bicycle` - 3 credits first hour, 2 credits additional hours
+- `Scooter` - 2 credits first hour, 1 credit additional hours
+- `Skateboard` - 1 credit first hour, 0.5 credits additional hours
 
-*** 
+### 6. Station System
 
-## Workflow
+Five campus stations (each extending the base `Station` class):
+- Stefani Building (capacity: 40)
+- Student Center (capacity: 90)
+- Biology Building (capacity: 35)
+- Chemical Engineering Building (capacity: 45)
+- Business Administration Building (capacity: 45)
 
-###### We don't need some crazy code review process, just text changes, through the desired branch system, it shouldn't be difficult to backtrack mistakes or pushes to development branch once pulled from specific feature branch
+### 7. Reservation System
 
-***
+The `Station` class handles reservations, including creation, modification, cancellation, and waitlist management.
 
-## Responsibility
+## Data Structures Implementation
 
-##### It's detailed in the plan-of-attack, but it seems like the data structures go well with each, let me know what you think:
+The system implements all required data structures:
 
-- Set (Vehicle inventory) | Vehicle System
-- LinkedList (Transaction logs) | Transaction & History
-- HashMap (Client-reservation mapping) | Reservation System
-- Stack (Undo functionality) | Reservation System
-- Queue (Waitlist management) | Station Management
+1. **Set** (HashSet): Stores vehicles at each station
+2. **LinkedList**: Stores the reservation history and implements Queue interface for waitlists
+3. **HashMap**: Maps operator IDs to Operator objects
+4. **Queue**: Manages waitlists when vehicles are unavailable
+5. **Scanner**: Handles user input throughout the system
+
+## Business Rules
+
+- Service hours: 7:00 AM - 6:00 PM, Monday-Friday
+- Maximum 2 vehicles per owner
+- One reservation per client at a time
+- Maximum reservation duration: 6 hours
+- Each station has a fixed capacity
+
+## How to Run
+
+1. Compile the project:
+```
+./compile.sh
+```
+
+2. Run the application:
+```
+./build.sh
+```
+
+3. Follow the on-screen instructions to navigate the system
+
+## Test Mode
+
+The system includes a test mode that can be enabled to bypass service hour restrictions for development and testing purposes.
+
+## Future Enhancements
+
+- Graphical user interface
+- Database integration for persistent storage
+- Mobile application for client reservations
+- Advanced analytics and reporting
+- Payment processing integration

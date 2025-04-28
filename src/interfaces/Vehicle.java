@@ -1,42 +1,40 @@
 package interfaces;
 
-// PLANNED ENUM
+// TODO: Maybe use an enum later?
 // enum VehicleType { BICYCLE, SCOOTER, SKATEBOARD }
 
+/**
+ * Basic interface all vehicles must implement
+ * We have 3 vehicle types with different pricing:
+ * - Bicycles (most expensive)
+ * - Scooters (medium)
+ * - Skateboards (cheapest)
+ */
 public interface Vehicle {
 
-// Implementations will provide the fields
-
-    String getId();
-    String getOwnerid();
-    String getType();
-    String getDescription();
-    String getLocation(); // Station name or ID
-    boolean isAvailable();
+    // Core getters/setters all vehicles need
+    String getId(); // unique identifier
+    String getOwnerid(); // who owns it
+    String getType(); // what kind of vehicle
+    String getDescription(); // what it looks like
+    String getLocation(); // which station it's at
+    boolean isAvailable(); // can be reserved?
+    
+    // Mutators
     void setLocation(String location);
     void setAvailability(boolean available);
 
-    // methods
+    // Might add these later:
     // E getUsageSchedule();
     // String getOwnerId();
 }
 
-// ----------------------------------------------------------
-// VEHICLE SYSTEM INTERFACE
+// Some important rules:
+// - Owners can only register up to 2 vehicles
+// - Clients can only reserve 1 vehicle at a time
+// - Reservations max duration: 6 hours
 // 
-// This interface defines the core functionality required for all vehicle types
-// as outlined in the plan-of-attack.md
-//
-// Implementation classes will represent:
-//   - Bicycle - Highest cost tier (3 credits first hour, 2 credits additional)
-//   - Scooter - Medium cost tier (2 credits first hour, 1 credit additional)
-//   - Skateboard - Lowest cost tier (1 credit first hour, 0.5 credits additional)
-//
-// The vehicle inventory will be implemented using a Set data structure
-// to ensure unique vehicles and efficient lookup operations.
-//
-// Key constraints from requirements:
-//   - Users can only register up to 2 vehicles for rent
-//   - Users can only reserve 1 vehicle at a time
-//   - Maximum reservation duration: 6 hours
-//   - Each vehicle must have unique ID, type, description and location
+// Pricing tiers:
+// Bicycle: 3 credits first hour, 2 credits additional hours
+// Scooter: 2 credits first hour, 1 credit additional hours
+// Skateboard: 1 credit first hour, 0.5 credits additional hours

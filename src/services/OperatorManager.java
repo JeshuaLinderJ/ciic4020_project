@@ -1,101 +1,206 @@
 package services;
 
 import interfaces.OperatorManagement;
-import java.time.*;
 import java.util.*;
 import models.Operator;
 
 /**
- * USER MANAGEMENT IMPLEMENTATION
+ * Handles user management - adding/removing clients & owners
  * 
- * This class implements the OperatorManagement interface to handle
- * all user/operator operations defined in the system.
- * 
- * Data structures used:
- * - Queue: To maintain a FIFO list of operators during batch processing
- * - HashMap: To store registered operators with quick lookup by ID
+ * Uses a Queue for processing new operators and the operatorMap from main
+ * for storing them permanently
  */
-
 public class OperatorManager implements OperatorManagement{
 
-      //--------------------------------------------------
-    // Instance Variables
-    //--------------------------------------------------
+    // Our variables
     private Queue<Operator> operatorQueue = new LinkedList<>();
     //private Map<String, Operator> registeredOperators = new HashMap<>();
     private Scanner scanner = new Scanner(System.in);
+    private ServiceHoursManager svcHoursMgr = ServiceHoursManager.getInstance();
 
-     //--------------------------------------------------
-    // Interface Methods Implementation
-    //--------------------------------------------------
-
-
-    //This creates a client owner or both it’s called in Maine and it uses the #map operator from Maine. 
-    // It also uses a function called create operator from input and add the operator to the operator queue an ad to the operator hash
-    //  map.
-    // @Override
+    /**
+     * This creates clients/owners and adds them to the system
+     * Uses the operatorMap from main.java to store them
+     */
     public void addOperator(HashMap<String, Operator> operatorMap) {
-        if (!isWithinServiceHours()) {
-            System.out.println("The available service hours will be from 7:00 AM to 6:00 PM, Monday to Friday.");
+        // Check hours first!
+        if (!svcHoursMgr.isWithinServiceHours()) {
+            System.out.println("Operation not allowed outside of service hours (7:00 AM - 6:00 PM, Mon-Fri)");
+            System.out.println("   Toggle test mode in the main menu to bypass this restriction.");
+            return;
         }
 
-        boolean addingOperators = true;
+        boolean keepAdding = true;
 
-        while (addingOperators) {
-            Operator operator = createOperatorFromInput();
+        while (keepAdding) {
+            Operator op = createOperatorFromInput();
 
+            // add to queue and map
+            operatorQueue.add(op);
+            operatorMap.put(op.getId(), op);
+            op.display();
 
-            operatorQueue.add(operator);
-            operatorMap.put(operator.getId(), operator);
-            operator.display();
-
-            //change to clients
-            System.out.println("\nAdd another operator? (yes/no)");
+            // ask if they want to add more
+            System.out.println("\nAdd another person? (yes/no)");
             String response = scanner.nextLine().trim().toLowerCase();
             if (!response.equals("yes")) {
-                addingOperators = false;
+                keepAdding = false;
             }
         }
 
-        //change to clients
-        System.out.println("\nAll Operators in Queue (FIFO):");
+        // show everyone in the queue
+        System.out.println("\nPeople in Queue (FIFO order):");
         for (Operator op : operatorQueue) {
             System.out.println("- " + op.getName() + " (" + op.getId() + ")");
         }
     }
-  //--------------------------------------------------
-    // Helper Methods
-    //--------------------------------------------------
+    
+    // Input validation helpers
+    
     /**
-     * Creates a new Operator from user input via the console.
-     * Collects all necessary information including role-specific details.
-     * 
-     * @return A new Operator object populated with user input
+     * Checks if a name only has letters & spaces
+     */
+    private boolean isValidName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (!(Character.isLetter(c) || c == ' ')) {
+                return false;
+            }
+        }
+        return !name.trim().isEmpty();
+    }
+    
+    /**
+     * Makes sure ID only has numbers
+     */
+    private boolean isValidId(String id) {
+        for (int i = 0; i < id.length(); i++) {
+            if (!Character.isDigit(id.charAt(i))) {
+                return false;
+            }
+        }
+        return !id.isEmpty();
+    }
+    
+    /**
+     * Email validator - needs @ and proper domain
+     */
+    private boolean isValidEmail(String email) {
+        int atIndex = email.indexOf('@');
+        if (atIndex <= 0) {
+            return false;
+        }
+        
+        String domain = email.substring(atIndex + 1);
+        return domain.equals("upr.edu") || domain.endsWith(".com");
+    }
+    
+    /**
+     * Phone # validator - needs 9-10 digits
+     * Can have dashes in it too
+     */
+    private boolean isValidPhone(String phone) {
+        // Strip out dashes to count digits
+        String digitsOnly = phone.replace("-", "");
+        
+        // Check if it has 9-10 digits
+        if (digitsOnly.length() < 9 || digitsOnly.length() > 10) {
+            return false;
+        }
+        
+        // Make sure only digits & dashes
+        for (int i = 0; i < phone.length(); i++) {
+            char c = phone.charAt(i);
+            if (!Character.isDigit(c) && c != '-') {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Keeps asking until user gives valid input
+     * Uses the validator function to check it
+     */
+    private String getValidInput(String prompt, java.util.function.Predicate<String> validator, String errorMsg) {
+        String input;
+        boolean isValid;
+        
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine().trim();
+            isValid = validator.test(input);
+            
+            if (!isValid) {
+                System.out.println(errorMsg);
+            }
+        } while (!isValid);
+        
+        return input;
+    }
+    
+    /**
+     * Gets all the info needed to create an operator
+     * Has validation for each field
      */
     private Operator createOperatorFromInput() {
-        System.out.print("Enter name: ");
-        String name = scanner.nextLine();
+        // Name (letters & spaces only)
+        String name = getValidInput(
+            "Enter your name (letters only): ", 
+            this::isValidName, 
+            "Bad name format! Only letters & spaces allowed."
+        );
+        
+        // ID (numbers only)
+        String id = getValidInput(
+            "Enter your ID (just numbers): ", 
+            this::isValidId, 
+            "Invalid ID! Numbers only please."
+        );
+        
+        // Email (needs @, ends with upr.edu or .com)
+        String email = getValidInput(
+            "Enter your UPR Email: ", 
+            this::isValidEmail, 
+            "Bad email! Must have @ and end with upr.edu or .com"
+        );
+        
+        // Phone (9-10 digits, can have dashes)
+        String phone = getValidInput(
+            "Enter your Phone # (9-10 digits, dashes ok): ", 
+            this::isValidPhone, 
+            "Invalid phone #! Need 9-10 digits, dashes are optional."
+        );
 
-        System.out.print("Enter  ID(Student number or any other ID): ");
-        String id = scanner.nextLine();
-
-        System.out.print("Enter UPR Email: ");
-        String uprEmail = scanner.nextLine();
-
-        System.out.print("Enter  Phone Number: ");
-        String phoneNum = scanner.nextLine();
-
-        System.out.println("What would they like to be registered as?");
+        // What type of user are they?
+        System.out.println("What do you want to be?");
         System.out.println("Press 1: Client");
         System.out.println("Press 2: Owner");
         System.out.println("Press 3: both");
     
-        int action = Integer.parseInt(scanner.nextLine());
+        // Get valid choice 1-3
+        int choice;
+        while (true) {
+            try {
+                System.out.print("Your choice: ");
+                choice = Integer.parseInt(scanner.nextLine().trim());
+                if (choice >= 1 && choice <= 3) {
+                    break;
+                } else {
+                    System.out.println("Please pick 1, 2, or 3!");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("That's not a number! Try again.");
+            }
+        }
+        
+        // Set flags based on choice
         boolean isClient = false;
         boolean isOwner = false;
         boolean isBoth = false;
     
-        switch (action) {
+        switch (choice) {
             case 1 -> isClient = true;
             case 2 -> isOwner = true;
             case 3 -> {
@@ -103,111 +208,114 @@ public class OperatorManager implements OperatorManagement{
                 isOwner = true;
                 isBoth = true;
             }
-            default -> System.out.println("error.");
         }
 
-        System.out.print("Enter initial credit amount (e.g. 50.00): ");
-        double credit = Double.parseDouble(scanner.nextLine());
-
-
-        Operator operator = new Operator(name, id, uprEmail, isOwner, isClient, isBoth, phoneNum);
-        operator.setCredit(credit);
-         return operator;
-    }
-
-
-     /**
-     * Checks if the current time is within service hours.
-     * Service hours are 7:00 AM to 6:00 PM, Monday to Friday.
-     * 
-     * @return true if current time is within service hours, false otherwise
-     */
-    private boolean isWithinServiceHours() {
-        ZonedDateTime now = ZonedDateTime.now();
-        DayOfWeek day = now.getDayOfWeek();
-        LocalTime start = LocalTime.of(7, 0);
-        LocalTime end = LocalTime.of(18, 0);
-        LocalTime currentTime = now.toLocalTime();
-
-        boolean isWeekday = day != DayOfWeek.SATURDAY && day != DayOfWeek.SUNDAY;
-        boolean isWithinTime = !currentTime.isBefore(start) && !currentTime.isAfter(end);
-
-        return isWeekday && isWithinTime;
-    }
-
-    //--------------------------------------------------
-    // Interface Methods Implementation (continued)
-    //--------------------------------------------------
-
-    //Modifies a pre-existing clients and owners , called by main
-    // @Override
-    public void modifyOperator(String studentID, HashMap<String, Operator> operatorMap) {
-
-if (operatorMap.containsKey(studentID)) {
-    Operator operator = createOperatorFromInput();
-
-    operatorMap.put(studentID, operator);
-} else {
-    System.out.println("Clietn/owner with ID " + studentID + " does not exist.");
-}
-        }
-
-        //delete a pre-existing clients and owners , called by main
-    // @Override
-    public void deleteOperator(String studentID, HashMap<String, Operator> operatorMap){
-        if (operatorMap.containsKey(studentID)){
-            
-            operatorMap.remove(studentID);
-            System.out.println("Operator with ID " + studentID + " has been deleted.");
-        } else {
-            System.out.println("No operator found with ID: " + studentID);
-        }
-    }
-
-    // shows all clients and owners in the operatorMap, called by main
-    // @Override
-    public void listRegisteredOperators(HashMap<String, Operator> operatorMap) {
-
-
-        if (!operatorMap.isEmpty()) {
-            for (Map.Entry<String, Operator> entry : operatorMap.entrySet()) {
-                String key = entry.getKey();          // The ID (key)
-                Operator value = entry.getValue();   // The Operator (value)
-            
-                // Displaying the key and value (you can customize this)
-                System.out.println("ID: " + key + ", Name: " + value.getName() + ", Phone: " + value.getPhoneNumber());
+        // Get starting credit amount
+        double credit;
+        while (true) {
+            try {
+                System.out.print("Starting credit amount? (like 50.00): ");
+                credit = Double.parseDouble(scanner.nextLine().trim());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Not a valid number! Try something like 50.00");
             }
         }
-        else {
-                 System.out.println("The operator map is empty.");
-        }
-}
 
-
-    @Override
-    public void addOperator(Operator Operator) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addOperator'");
+        // Create new operator & set credit
+        Operator operator = new Operator(name, id, email, isOwner, isClient, isBoth, phone);
+        operator.setCredit(credit);
+        return operator;
     }
 
+    /**
+     * Changes info for existing operator
+     */
+    public void modifyOperator(String studentID, HashMap<String, Operator> operatorMap) {
+        // Check service hours first!
+        if (!svcHoursMgr.isWithinServiceHours()) {
+            System.out.println("Operation not allowed outside of service hours (7:00 AM - 6:00 PM, Mon-Fri)");
+            System.out.println("   Toggle test mode in the main menu to bypass this restriction.");
+            return;
+        }
+
+        // See if ID exists in our map
+        if (operatorMap.containsKey(studentID)) {
+            // Just create a new one & replace the old one
+            Operator operator = createOperatorFromInput();
+            operatorMap.put(studentID, operator);
+            System.out.println("Operator with ID " + studentID + " has been updated!");
+        } else {
+            System.out.println("Hmm, can't find ID " + studentID + " in our system.");
+        }
+    }
+
+    /**
+     * Deletes an operator from the system
+     */
+    public void deleteOperator(String studentID, HashMap<String, Operator> operatorMap) {
+        // Check service hours first!
+        if (!svcHoursMgr.isWithinServiceHours()) {
+            System.out.println("Operation not allowed outside of service hours (7:00 AM - 6:00 PM, Mon-Fri)");
+            System.out.println("   Toggle test mode in the main menu to bypass this restriction.");
+            return;
+        }
+
+        // Try to remove from map
+        if (operatorMap.containsKey(studentID)) {
+            operatorMap.remove(studentID);
+            System.out.println("Operator " + studentID + " deleted successfully!");
+        } else {
+            System.out.println("No operator with ID: " + studentID + " found!");
+        }
+    }
+
+    /**
+     * Shows all registered operators
+     * This is allowed outside service hours since it's just reading
+     */
+    public void listRegisteredOperators(HashMap<String, Operator> operatorMap) {
+        if (operatorMap.isEmpty()) {
+            System.out.println("Nobody registered yet!");
+            return;
+        }
+
+        System.out.println("\n------ Registered Operators ------");
+        for (Map.Entry<String, Operator> entry : operatorMap.entrySet()) {
+            String key = entry.getKey();          // The ID
+            Operator value = entry.getValue();   // The person
+            
+            // Show basic info about each person
+            System.out.println("ID: " + key + ", Name: " + value.getName() + 
+                             ", Role: " + (value.isBoth() ? "Client & Owner" : (value.isClient() ? "Client" : "Owner")) +
+                             ", Email: " + value.getUprEmail() +
+                             ", Phone: " + value.getPhoneNumber());
+        }
+        System.out.println("----------------------------------");
+    }
+
+    // Interface methods we don't use - required but just throw exception
+    @Override
+    public void addOperator(Operator Operator) {
+        // TODO: Implement this when needed
+        throw new UnsupportedOperationException("Not implemented yet!");
+    }
 
     @Override
     public void modifyOperator(String studentID, Operator updatedOperator) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modifyOperator'");
+        // TODO: Implement this when needed
+        throw new UnsupportedOperationException("Not implemented yet!");
     }
-
 
     @Override
     public void deleteOperator(String studentID) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteOperator'");
+        // TODO: Implement this when needed
+        throw new UnsupportedOperationException("Not implemented yet!");
     }
-
 
     @Override
     public void listRegisteredOperators() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listRegisteredOperators'");
+        // TODO: Implement this when needed
+        throw new UnsupportedOperationException("Not implemented yet!");
     }
 }

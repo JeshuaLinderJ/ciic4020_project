@@ -2,12 +2,9 @@
 
 package interfaces;
 
-
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import models.Operator;
-
 
 public interface StationManagement {
     //void addStation(Station station);//remove
