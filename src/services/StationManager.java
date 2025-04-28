@@ -16,6 +16,9 @@ public class StationManager implements StationManagement {
 
     //--------------------------------------------------
     // Instance Variables
+    // This is the station manager at helps with all the registrations waitlist and creation of vehicles and putting them into 
+    // the station such as 
+    // Stephanie and so on it uses a hashmap in order to easily link clients to their reserved vehicles
     //--------------------------------------------------
     private Map<String, Station> stations; // this can be changed for an int if we want to have them be like 0-4 or something
     HashMap<String, Object> reservation = new HashMap<>();
@@ -29,25 +32,11 @@ public class StationManager implements StationManagement {
     };
 
     // @Override
-    // public void addStation(Station station) {
-    //     stations.put(station.getName(), station);
-    // };
-    
-    // @Override
-    // public void removeStation(String stationName) {
-    //     stations.remove(stationName);
-    // };
-    
-
-    //--------------------------------------------------
-    // Interface Methods Implementation
-    //--------------------------------------------------
-    // @Override // commented to get rid of error
-    // @Override
     public Station getStation(String stationName) {
         return stations.get(stationName);
     };
-    
+    //Makes the reservations linking clients to their reserved vehicles if possible it is called by Maine
+    //It has a switch to inside of it in order to facilitate the choices for different vehicles and different stations, called by main
         // @Override
         public void makeReservation(HashMap<String, Operator> operatorMap, boolean mod, String MODid) {
             // TODO: Implement reservation logic
@@ -399,7 +388,10 @@ public class StationManager implements StationManagement {
                             };
                         default -> "Unknown";
                     };
-    
+                    
+                    
+//Modifies a pre-existing reservation making sure that the client is able to get a reservation that better
+// suits they’re current needs, called by main
         @Override
         public void modifyReservation(HashMap<String, Operator> operatorMap) {
             
@@ -414,7 +406,9 @@ public class StationManager implements StationManagement {
                     
             System.out.println("Reservation " + reservationID + " modified.");
         }
-    
+
+    //Modifies a pre-existing reservation making sure that the client is able to get Get their money back and give it to the next person
+    // in line if we had time to implement it, called by main
         @Override
         public void cancelReservation( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement cancellation logic
@@ -432,18 +426,24 @@ public class StationManager implements StationManagement {
             }
         }
     
+        //Shows you the available vehicles or at least it should’ve, called by main
         // @Override
         public void getVehicleAvailability( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement vehicle availability check
             System.out.println("Checking availability at station " + station + " for time " + time);
         }
     
+        // Was meant to be the area where people were added to the waitlist, but it was done somewhere else.
+        //  It hasn’t been deleted due to the fact that the interface requires it for the implementation for now. called by main
         @Override
         public void addToWaitlist( HashMap<String, Operator> operatorMap ) {
             // TODO: Implement waitlist logic
             System.out.println("Added operator " + OperatorID + " to waitlist for vehicle type " + vehicleType + " at station " + station);
         }
 
+
+//Helps in the creation of a vehicle with a switch statement inside of it 
+//in order to facilitate we have to chocking which vehicle you want to create called by main.
         // @Override
         void addVehicle( HashMap<String, Operator> operatorMap){
 
@@ -527,7 +527,13 @@ public class StationManager implements StationManagement {
                         default -> "Unknown";
                     };
 
+                   
 
+
+
+
+
+//Modify a pre-existing vehicle called by Main
                     @Override
                     public  void modifyVehicle( HashMap<String, Operator> operatorMap ) {
 
@@ -539,18 +545,37 @@ public class StationManager implements StationManagement {
 
         if (owner != null) {
             if (owner.isOwner() || owner.isBoth())
+                
+                // if (operatorMap.containsKey(studentID)) {
+                //     Operator operator = createOperatorFromInput();
+                
+                //     //the id should be removed from the suff or something since it being used as the key
+                //     operatorMap.put(studentID, operator);
+                // } else {
+                //     System.out.println("Operator with ID " + studentID + " does not exist.");
+                // }
+                //         }
+                
+                //removes a pre-existing vehicle called by Main
                     @Override
                     public  void removeVehicle(HashMap<String, Operator> operatorMap){
 
                         RemoveVehicle();
 
       
-                
+                //shows you all the registerd vehicles called by Main
                     @Override
                     public void listVehicle(HashMap<String, Operator> operatorMap){
                 
                 printInventory();
 
+                    }
+                }
+            }
+        }
+    }
+}
+}
                     }
                 }
             }

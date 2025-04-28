@@ -31,7 +31,7 @@ public class Scooter implements Vehicle {
     }
 
     //--------------------------------------------------
-    // Interface Methods Implementation
+    //// Interface Methods Implementation/getters
     //--------------------------------------------------
     
     @Override
