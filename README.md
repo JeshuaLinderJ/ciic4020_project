@@ -57,12 +57,6 @@ ciic4020_project/
 ├── documentation/              # Project documentation
 │   ├── instructions.txt        # Assignment requirements
 │   └── plan-of-attack.md       # Development plan
-├── test/                       # Testing framework
-│   ├── run_tests.bat           # Windows test runner
-│   ├── run_tests.sh            # Unix test runner
-│   └── services/               # Test implementations
-├── build.sh                    # Build script
-├── compile.sh                  # Compilation script
 └── README.md                   # This file
 ```
 

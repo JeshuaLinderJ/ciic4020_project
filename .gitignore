@@ -17,9 +17,5 @@
 *.DS_Store
 *.vscode
 
-# Ignore all files named "test"
-test
-**/test
-
 # Ignore all shell scripts
 *.sh
